@@ -4,6 +4,8 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CotizacionProvider } from "@/components/CotizacionContext";
+import { CotizacionModal } from "@/components/CotizacionModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -151,11 +153,14 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <ThemeProvider>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          <CotizacionProvider>
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <CotizacionModal />
+          </CotizacionProvider>
         </ThemeProvider>
       </body>
     </html>

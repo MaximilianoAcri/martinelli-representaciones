@@ -5,10 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { categorias } from "@/data/productos";
 import { ThemeToggle } from "./ThemeToggle";
+import { useCotizacion } from "./CotizacionContext";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const { openModal } = useCotizacion();
 
   return (
     <nav className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 sticky top-0 z-50 shadow-sm dark:shadow-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
@@ -80,12 +82,12 @@ export function Navbar() {
           {/* Botón CTA y Theme Toggle - Desktop */}
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Link 
-              href="/contacto" 
+            <button 
+              onClick={() => openModal()}
               className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-4 py-2 rounded-lg font-medium transition-colors"
             >
-              Consultar
-            </Link>
+              Cotizar
+            </button>
           </div>
 
           {/* Botón Hamburguesa - Mobile */}
@@ -176,13 +178,15 @@ export function Navbar() {
 
               <div className="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <ThemeToggle />
-                <Link 
-                  href="/contacto" 
+                <button 
+                  onClick={() => {
+                    openModal();
+                    setMenuOpen(false);
+                  }}
                   className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-4 py-2 rounded-lg font-medium transition-colors"
-                  onClick={() => setMenuOpen(false)}
                 >
-                  Consultar
-                </Link>
+                  Cotizar
+                </button>
               </div>
             </div>
           </div>

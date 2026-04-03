@@ -5,14 +5,14 @@ import { useState, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { ProductCard } from "@/components/ProductCard";
 import { productos } from "@/data/productos";
-import { Producto } from "@/types";
+import { useCotizacion } from "@/components/CotizacionContext";
+import { WhatsAppButton } from "@/components/CotizacionButton";
 
 export function SeccionClient() {
   const params = useParams();
   const router = useRouter();
   const categoriaId = params.categoria as string;
-  
-  const [productoSeleccionado, setProductoSeleccionado] = useState<Producto | null>(null);
+  const { openModal } = useCotizacion();
   
   // Buscar la categoría actual
   const categoria = useMemo(() => 
@@ -43,12 +43,6 @@ export function SeccionClient() {
     );
   }
   
-  const handleConsultar = (producto: Producto) => {
-    setProductoSeleccionado(producto);
-    // Scroll al formulario de contacto
-    document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div>
       {/* Header de sección */}
@@ -82,76 +76,35 @@ export function SeccionClient() {
                 <ProductCard
                   key={producto.id}
                   producto={producto}
-                  onConsultar={handleConsultar}
                 />
               ))}
             </div>
           )}
         </div>
       </section>
-      
-      {/* Sección de contacto */}
-      {productoSeleccionado && (
-        <section id="contacto" className="py-16 bg-slate-50">
-          <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-              Consultar por: {productoSeleccionado.nombre}
-            </h2>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Tu nombre
-                </label>
-                <input 
-                  type="text" 
-                  required
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none"
-                  placeholder="Juan Pérez"
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Email
-                  </label>
-                  <input 
-                    type="email" 
-                    required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none"
-                    placeholder="juan@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Teléfono
-                  </label>
-                  <input 
-                    type="tel" 
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none"
-                    placeholder="11 1234 5678"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Mensaje
-                </label>
-                <textarea 
-                  rows={4}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none resize-none"
-                  placeholder={`Hola, me interesa el producto: ${productoSeleccionado.nombre}. Quedo atenta a tu respuesta.`}
-                ></textarea>
-              </div>
-              <button 
-                type="submit"
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
-              >
-                Enviar Consulta
-              </button>
-            </form>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">
+            ¿No encontraste lo que buscabas?
+          </h2>
+          <p className="text-slate-600 mb-6">
+            Consultanos y te ayudamos a encontrar el producto exacto para tu proyecto.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <WhatsAppButton>
+              Chatear con asesor
+            </WhatsAppButton>
+            <button
+              onClick={() => openModal()}
+              className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors"
+            >
+              Solicitar Cotización
+            </button>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
     </div>
   );
 }

@@ -2,15 +2,11 @@
 
 import { useState } from "react";
 import { Producto } from "@/types";
-import Image from "next/image";
+import { useCotizacion } from "./CotizacionContext";
 
-interface ProductCardProps {
-  producto: Producto;
-  onConsultar: (producto: Producto) => void;
-}
-
-export function ProductCard({ producto, onConsultar }: ProductCardProps) {
+export function ProductCard({ producto }: { producto: Producto }) {
   const [expanded, setExpanded] = useState(false);
+  const { openModal } = useCotizacion();
   
   return (
     <div className="bg-white dark:bg-slate-800 rounded-lg shadow-sm dark:shadow-md overflow-hidden hover:shadow-md dark:hover:shadow-lg transition-shadow duration-300 border border-slate-200 dark:border-slate-700 h-full flex flex-col">
@@ -70,13 +66,13 @@ export function ProductCard({ producto, onConsultar }: ProductCardProps) {
             </p>
           </div>
 
-          {/* Botón Consultar */}
+          {/* Botón Solicitar Cotización */}
           <button
-            onClick={() => onConsultar(producto)}
-            className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-4 py-3 rounded-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center font-medium text-sm"
-            title="Consultar"
+            onClick={() => openModal(producto)}
+            className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-3 py-2 rounded-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center font-medium text-sm whitespace-nowrap"
+            title="Solicitar Cotización"
           >
-            Consultar
+            Cotizar
           </button>
         </div>
       </div>
