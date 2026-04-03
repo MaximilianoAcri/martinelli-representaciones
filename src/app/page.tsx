@@ -2,8 +2,8 @@ import Link from "next/link";
 import { categorias } from "@/data/productos";
 import { ProcessTimeline } from "@/components/ProcessTimeline";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
-import { AnimatedSubtitle } from "@/components/AnimatedSubtitle";
-import { CotizacionButton, WhatsAppButton } from "@/components/CotizacionButton";
+import { WhatsAppButton, CotizacionButton } from "@/components/CotizacionButton";
+import { HeroSection } from "@/components/HeroSection";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
         href="https://wa.me/541559929083"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 hover-lift"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 hover-lift"
         title="Chateá con nosotros"
       >
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -21,49 +21,7 @@ export default function Home() {
         </svg>
       </a>
 
-      {/* Hero Section */}
-      <section className="relative bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 overflow-hidden transition-colors duration-300">
-        {/* Background pattern */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-100 via-white to-white dark:from-slate-900 dark:via-slate-900 dark:to-slate-900"></div>
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-slate-500/10 to-transparent rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 py-24 md:py-32">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-4 slide-up">
-              <span className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg flex items-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                20+ años asesorando a industriales
-              </span>
-            </div>
-              <h1 className="text-3xl md:text-6xl font-extrabold mb-6 leading-tight slide-up animate-delay-100 flex items-center flex-wrap gap-2 md:gap-0 drop-shadow-lg">
-                <img src="/m.png" alt="M" className="h-[1em] md:h-[1.3em] w-auto inline-block align-middle drop-shadow-lg" />
-                <span className="text-gradient-static">artinelli</span>
-                <span className="text-slate-900 dark:text-white">Representaciones</span>
-              </h1>
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-4 slide-up animate-delay-200">
-              Distribuidores oficiales de las mejores marcas
-            </p>
-            <AnimatedSubtitle />
-            <div className="flex flex-col sm:flex-row gap-4 slide-up animate-delay-400 mt-8">
-              <button 
-                className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 px-8 py-4 rounded-xl font-semibold text-lg transition-all text-center text-white dark:text-slate-900 hover-lift hover-glow"
-              >
-                <Link href="/catalogo">
-                  Explorar Productos
-                </Link>
-              </button>
-              <CotizacionButton variant="secondary">
-                Solicitar Cotización
-              </CotizacionButton>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Sobre Nosotros */}
       <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-800 transition-colors duration-300">
