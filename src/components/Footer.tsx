@@ -66,6 +66,16 @@ export function Footer() {
                   Contacto
                 </Link>
               </li>
+              <li>
+                <Link href="/terminos" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                  Términos
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacidad" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                  Privacidad
+                </Link>
+              </li>
             </ul>
           </div>
 

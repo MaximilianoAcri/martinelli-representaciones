@@ -1,5 +1,6 @@
 import { categorias } from "@/data/productos";
 import { SeccionClient } from "@/components/SeccionClient";
+export { generateMetadata } from "./metadata";
 
 export function generateStaticParams() {
   return categorias.map((cat) => ({

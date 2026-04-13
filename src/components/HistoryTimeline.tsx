@@ -6,7 +6,7 @@ const historyEvents = [
   {
     year: "2004",
     title: "Fundación",
-    description: "Francisco Martinelli inicia su actividad como agente comercial en el sector de materiales industriales."
+    description: "Francisco Martinelli inicia su actividad en el sector de materiales industriales."
   },
   {
     year: "2010",
@@ -16,7 +16,7 @@ const historyEvents = [
   {
     year: "2015",
     title: "Relaciones Estratégicas",
-    description: "Establecemos representaciones oficiales con los principales fabricantes del país."
+    description: "Establecemos relaciones directas con los principales fabricantes del país."
   },
   {
     year: "2020",
@@ -63,17 +63,16 @@ export function HistoryTimeline() {
           return (
             <div 
               key={event.year}
-              className={`relative flex items-center ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0'} transition-all duration-500`}
+              className={`relative flex items-center ${!isLeft ? 'md:justify-end' : ''} ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-y-4'} transition-all duration-500`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               {/* Punto en la linea */}
               <div className="absolute left-4 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full bg-slate-900 dark:bg-white border-4 border-white dark:border-slate-900 z-10"></div>
               
               {/* Contenido - alterna izq/der en desktop */}
-              <div className={`ml-12 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+              <div className={`w-full ml-12 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'}`}>
                 <div className={`
-                  p-4 md:p-6 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700
-                  ${isLeft ? 'md:mr-auto' : 'md:ml-auto'}
+                  p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm
                 `}>
                   <div className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1">
                     {event.year}

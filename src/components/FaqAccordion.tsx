@@ -14,7 +14,15 @@ const faqItems: FaqItem[] = [
   },
   {
     question: "¿Realizan envíos a todo el país?",
-    answer: "Sí, despachamos a todo el territorio argentino. El costo de envío depende del volumen del pedido y tu ubicación. Consultanos para cotización exacta."
+    answer: "Sí, coordinamos entregas a todo el territorio argentino. Te informamos el costo de envío según tu ubicación."
+  },
+  {
+    question: "¿Hacen factura?",
+    answer: "Sí, emitimos factura. Somos el canal de venta de los principales fabricantes, así que comprás directo con nosotros."
+  },
+  {
+    question: "¿Entregan ustedes los productos?",
+    answer: "Coordinamos la entrega directamente con vos. El fabricante despacha desde su planta."
   },
   {
     question: "¿Cuánto tiempo tardan los envíos?",
@@ -33,8 +41,8 @@ const faqItems: FaqItem[] = [
     answer: "Por el momento trabajamos de manera online y por teléfono. Podemos enviarte fotos, fichas técnicas y videos de los productos. También podés consultar nuestro catálogo online."
   },
   {
-    question: "¿Qué marcas representan?",
-    answer: "Trabajamos con los principales fabricantes nacionales: Metalpar, Sinko, Acerbrag, Grifería Argentina, TEFA y más. Todos productos de primera calidad con garantía."
+    question: "¿Cómo trabajan? ¿Son fabricantes?",
+    answer: "Somos representantes comerciales - conectamos fabricantes con clientes. No fabricamos ni despachamos directamente, pero gestionamos tu pedido y te asesoramos durante todo el proceso."
   },
   {
     question: "¿Hacen facturas A y B?",

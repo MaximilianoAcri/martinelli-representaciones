@@ -6,22 +6,22 @@ const benefits = [
   {
     letter: "A",
     title: "Atención Personalizada",
-    description: "Te guiamos en cada paso. Consultanos y te asesoramos sobre el mejor producto para tu necesidad."
+    description: "Maxi o Franco te van a guiar en cada paso de manera directa y sin vueltas. Atendemos tu necesidad específica."
   },
   {
     letter: "E",
-    title: "Envíos a Todo el País",
-    description: "Despachamos a toda Argentina. Consultanos el costo de envío según tu ubicación."
+    title: "Entregas en Todo el País",
+    description: "Coordinamos la entrega de tu pedido a toda Argentina. Te pasamos el costo de envío según tu ubicación."
   },
   {
     letter: "P",
-    title: "Precios Competitivos",
-    description: "Como agentes comerciales, negociamos los mejores precios para vos."
+    title: "Precios de Fábrica",
+    description: "Tenemos los mejores precios directo de fábrica para vos."
   },
   {
     letter: "C",
-    title: "Productos de Calidad",
-    description: "Trabajamos con los mejores fabricantes: Metalpar, Sinko, Acerbrag, Grifería Argentina, TEFA y más."
+    title: "Calidad Garantizada",
+    description: "Productos de primera calidad certificados. Hierros, aceros y materiales que cumplen con los más altos estándares."
   }
 ];
 

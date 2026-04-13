@@ -11,8 +11,10 @@ export default function FaqPage() {
   return (
     <div>
       {/* Header */}
-      <section className="bg-slate-100 dark:bg-slate-800 py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 py-16 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative">
           <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Preguntas Frecuentes
           </h1>
@@ -30,8 +32,10 @@ export default function FaqPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 bg-slate-50 dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <section className="py-12 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 text-center relative">
           <p className="text-slate-600 dark:text-slate-400 mb-4">
             ¿No encontraste la respuesta que buscabas?
           </p>

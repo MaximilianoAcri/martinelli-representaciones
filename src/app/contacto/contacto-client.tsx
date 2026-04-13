@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { categorias } from "@/data/productos";
+import { db } from "@/lib/firebase-client";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function ContactoClient() {
   const [formData, setFormData] = useState({
@@ -11,10 +13,41 @@ export default function ContactoClient() {
     mensaje: "",
     productos: [] as string[]
   });
+  const [enviando, setEnviando] = useState(false);
+  const [enviado, setEnviado] = useState(false);
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("¡Gracias por tu consulta! Te vamos a contactar pronto.");
+    setEnviando(true);
+    
+    try {
+      await addDoc(collection(db, "contactos"), {
+        nombre: formData.nombre,
+        email: formData.email,
+        telefono: formData.telefono,
+        mensaje: formData.mensaje,
+        productos: formData.productos,
+        fecha: serverTimestamp(),
+        estado: "nuevo"
+      });
+      
+      setEnviado(true);
+      setFormData({
+        nombre: "",
+        email: "",
+        telefono: "",
+        mensaje: "",
+        productos: []
+      });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setEnviado(false), 5000);
+    } catch (error) {
+      console.error("Error al enviar:", error);
+      alert("Hubo un problema al enviar tu mensaje. Podés contactarnos por WhatsApp.");
+    } finally {
+      setEnviando(false);
+    }
   };
   
   const toggleProducto = (producto: string) => {
@@ -32,15 +65,18 @@ export default function ContactoClient() {
       <section className="bg-gradient-to-r from-slate-800 to-slate-700 text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Contacto</h1>
-          <p className="text-slate-300 text-lg">
+          <p className="text-slate-300 dark:text-white text-lg">
             Escribinos y te ayudamos a encontrar lo que necesitás
           </p>
         </div>
       </section>
 
       {/* Opciones de contacto */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="py-12 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 relative overflow-hidden">
+        {/* Decorative */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* WhatsApp */}
             <a
@@ -56,23 +92,23 @@ export default function ContactoClient() {
               </div>
               <div>
                 <p className="font-semibold text-lg">Chateá por WhatsApp</p>
-                <p className="text-slate-400">Respuesta inmediata</p>
+                <p className="text-slate-400 dark:text-slate-300">Respuesta inmediata</p>
               </div>
             </a>
 
             {/* Email */}
             <a
               href="mailto:info@martinellimateriales.com"
-              className="flex items-center gap-4 bg-slate-200 hover:bg-slate-300 text-slate-900 p-6 rounded-xl transition-colors"
+              className="flex items-center gap-4 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white p-6 rounded-xl transition-colors"
             >
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
                 <p className="font-semibold text-lg">Envianos un email</p>
-                <p className="text-slate-500">info@martinellimateriales.com</p>
+                <p className="text-slate-500 dark:text-slate-300">info@martinellimateriales.com</p>
               </div>
             </a>
           </div>
@@ -80,15 +116,15 @@ export default function ContactoClient() {
       </section>
       
       {/* Formulario */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-slate-800">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 text-center">
             O dejanos tu mensaje
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Nombre */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                 Nombre completo *
               </label>
               <input 
@@ -104,7 +140,7 @@ export default function ContactoClient() {
             {/* Email y Teléfono */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                   Email *
                 </label>
                 <input 
@@ -117,7 +153,7 @@ export default function ContactoClient() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                   Teléfono
                 </label>
                 <input 
@@ -155,7 +191,7 @@ export default function ContactoClient() {
             
             {/* Mensaje */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                 Mensaje *
               </label>
               <textarea 
@@ -171,11 +207,56 @@ export default function ContactoClient() {
             {/* Botón enviar */}
             <button 
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+              disabled={enviando}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-4 rounded-xl font-semibold text-lg transition-colors flex items-center justify-center gap-2"
             >
-              Enviar Consulta
+              {enviando ? (
+                <>
+                  <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Enviando...
+                </>
+              ) : (
+                "Enviar Consulta"
+              )}
             </button>
+            
+            {enviado && (
+              <div className="mt-4 p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-xl text-center">
+                <p className="text-green-800 dark:text-green-300 font-medium">
+                  ✓ Tu mensaje fue enviado. Te contactamos pronto.
+                </p>
+              </div>
+            )}
           </form>
+        </div>
+      </section>
+
+      {/* Mapa */}
+      <section className="py-12 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 text-center">
+            Nuestra ubicación
+          </h2>
+          <div className="w-full h-96 rounded-xl overflow-hidden shadow-lg">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.015267437854!2d-58.56323668459404!3d-34.67042168029434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcbf3a1d4e3c3b%3A0x9a1e4a9a2a1a2a1a!2sMartinelli%20Representaciones!5e0!3m2!1ses!2sar!4v1234567890!5m2!1ses!2sar"
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen 
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación de Martinelli Representaciones"
+            ></iframe>
+          </div>
+          <p className="text-center text-slate-600 mt-4">
+            Estamos en Zona Norte, Buenos Aires. Coordinamos la entrega con los fabricantes.
+          </p>
         </div>
       </section>
     </div>

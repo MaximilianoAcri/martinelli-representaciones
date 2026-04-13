@@ -1,10 +1,27 @@
+export interface Subcategoria {
+  id: string;
+  nombre: string;
+  imagen: string;
+  descripcion?: string;
+}
+
+export interface CategoriaInfo {
+  id: Categoria;
+  nombre: string;
+  icono: string;
+  imagen: string;
+  descripcion?: string;
+  aplicaciones?: string[];
+  subcategorias?: Subcategoria[];
+  destacados?: boolean;
+}
+
 export type Categoria = 
-  | "chapa-perforada"
-  | "metal-y-mallas"
-  | "griferia"
-  | "representaciones"
   | "desplegados"
-  | "herramientas";
+  | "chapas"
+  | "mallas"
+  | "griferia"
+  | "materiales";
 
 export type Empresa = 
   | "Metalpar"
@@ -13,23 +30,40 @@ export type Empresa =
   | "Mallas Gab"
   | "Griferia Argentina"
   | "TEFA"
-  | "Desplegados Sur";
+  | "Desplegados Sur"
+  | "MetalurgiaFuerte"
+  | "ConstruSink"
+  | "AceroNacional"
+  | "FijacionesTech"
+  | "Grifería Premium"
+  | "MallaPro"
+  | "MallasSur"
+  | "Martinelli Representaciones";
 
 export interface Producto {
   id: string;
   nombre: string;
   descripcion: string;
+  descripcionCorta?: string;
   precio: number;
+  precioAnterior?: number;
   categoria: Categoria;
+  subcategoria?: string;
   empresa: Empresa;
   imagen?: string;
-  unidad?: string; // por metro, por unidad, etc.
+  unidad?: string;
   medidas?: string;
-  aplicaciones?: string[]; // Para mostrar en la card
-  materiales?: string[]; // Materiales disponibles
-  material?: string | string[]; // Material principal (alternativa a materiales)
-  juego?: string; // Para productos en set
-  caja?: string; // Para productos en caja
+  aplicaciones?: string[];
+  materiales?: string[];
+  material?: string | string[];
+  juego?: string;
+  caja?: string;
+  // Campos de marketing
+  destacado?: boolean;
+  nuevo?: boolean;
+  oferta?: boolean;
+  etiqueta?: string;
+  disponibilidad?: " Stock" | "Bajo Stock" | "Sin Stock";
 }
 
 export interface Contacto {

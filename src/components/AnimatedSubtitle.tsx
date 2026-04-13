@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 
 const messages = [
-  "Más de 20 años de experiencia en el mercado argentino",
-  "Distribuidores oficiales de las mejores marcas",
+  "Productos de primera calidad",
+  "Chapas perforadas, mallas y grifería",
+  "Más de 20 años de experiencia en el mercado",
   "Asesoramiento técnico especializado",
   "Precios de fábrica sin intermediarios",
-  "Entregas a todo el país",
-  "Compromiso serio con cada cliente",
-  "Atención personalizada de principio a fin"
+  "Envíos a todo el país",
+  "Atención personalizada",
+  "Compromiso serio con cada cliente"
 ];
 
 export function AnimatedSubtitle() {
@@ -32,10 +33,10 @@ export function AnimatedSubtitle() {
   }, []);
 
   return (
-    <div className="h-8 overflow-hidden">
+    <div className="h-10 overflow-hidden">
       <p 
         className={`
-          text-lg text-slate-500 dark:text-slate-400 transition-all duration-500
+          text-xl md:text-2xl font-medium text-white/90 transition-all duration-500 drop-shadow-md
           ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
         `}
       >

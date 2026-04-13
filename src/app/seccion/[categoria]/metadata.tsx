@@ -1,31 +1,36 @@
 import type { Metadata } from "next";
 
 export const metadata: Record<string, Metadata> = {
-  "chapa-perforada": {
-    title: "Chapas Perforadas y Decorativas | Martinelli Materiales",
-    description: "Chapas perforadas y decorativas de primera calidad. Chapas tipo persiana, industrial, microperforadas y más. Metalpar, Sinko, Acerbrag. Envíos a todo Argentina.",
-    keywords: ["chapas perforadas", "chapas decorativas", "chapa industrial", "chapa microperforada", "chapa tipo persiana", "Metalpar", "Sinko", "Acerbrag"],
+  "desplegados": {
+    title: "Metal Desplegado | Martinelli Representaciones",
+    description: "Metal desplegado liviano, mediano, pesado y reforzado para yeseros. Material maleable y fácil de cortar. Envíos a todo Argentina.",
+    keywords: ["metal desplegado", "metal desplegado yeseros", "metal para revoque", "guardacantos"],
   },
-  "metal-y-mallas": {
-    title: "Mallas Metálicas - Hexagonal, Gallinero, Simétrica | Martinelli Materiales",
-    description: "Mallas metálicas de calidad: hexagonal, gallinero, simétrica, gabión y overshield. Metalpar, Sinko, Mallas Gab. Envíos a todo Argentina.",
-    keywords: ["mallas metálicas", "malla hexagonal", "malla gallinero", "malla simétrica", "malla gabión", "Metalpar", "Sinko", "Mallas Gab"],
+  "chapas": {
+    title: "Chapas Perforadas y Decorativas | Martinelli Representaciones",
+    description: "Chapas perforadas técnicas y decorativas. Hierro, acero galvanizado y acero inoxidable. Diseños técnicos y ornamentales. Envíos a todo Argentina.",
+    keywords: ["chapas perforadas", "chapas decorativas", "chapa industrial", "chapa microperforada", "metal desplegado decorativo"],
+  },
+  "mallas": {
+    title: "Mallas - Fibra de Vidrio, Hexagonal, Gallinero | Martinelli Representaciones",
+    description: "Mallas para construcción, industria y cercos. Fibra de vidrio, hexagonal, gallinero, electrosoldadas, alambre de púas. Envíos a todo Argentina.",
+    keywords: ["mallas", "malla fibra de vidrio", "malla hexagonal", "malla gallinero", "malla electrosoldada", "alambre de púas"],
   },
   "griferia": {
-    title: "Grifería Industrial y Comercial | Martinelli Materiales",
-    description: "Grifería industrial y comercial de primera calidad. Grifos, bachas, accesorios de baño. Grifería Argentina. Envíos a todo Argentina.",
-    keywords: ["grifería", "grifo industrial", "bacha acero inoxidable", "accesorios baño", "grifería Argentina"],
+    title: "Grifería Industrial y Comercial | Martinelli Representaciones",
+    description: "Grifería industrial y comercial de primera calidad. Grifos de lavadero, monocomando, bachas de acero inoxidable. Envíos a todo Argentina.",
+    keywords: ["grifería", "grifo industrial", "grifo lavadero", "monocomando", "bacha acero inoxidable"],
   },
   "materiales": {
-    title: "Materiales de Construcción - Chapas Zinc, Tejas, Hierros | Martinelli Materiales",
-    description: "Materiales de construcción de primera calidad. Chapas zinc, tejas coloniales, romana, policarbonato, hierros. TEFA. Envíos a todo Argentina.",
-    keywords: ["materiales construcción", "chapa zinc", "teja colonial", "teja romana", "teja policarbonato", "hierro ángulo", "hierro cuadrado", "TEFA"],
+    title: "Materiales y Fijaciones | Martinelli Representaciones",
+    description: "Chapas de zinc, tejas, perfiles de hierro, barras, tornillos, clavos, alambres y accesorios. Todo para tu obra. Envíos a todo Argentina.",
+    keywords: ["materiales construcción", "chapa zinc", "tejas", "perfiles hierro", "tornillos", "clavos", "alambre"],
   },
 };
 
 export function generateMetadata({ params }: { params: { categoria: string } }): Metadata {
   const categoriaMetadata = metadata[params.categoria] || {
-    title: "Productos | Martinelli Materiales",
+    title: "Productos | Martinelli Representaciones",
     description: "Chapas, Mallas, Grifería y Materiales de Construcción",
   };
   
@@ -34,6 +39,9 @@ export function generateMetadata({ params }: { params: { categoria: string } }):
     openGraph: {
       title: categoriaMetadata.title ?? undefined,
       description: categoriaMetadata.description ?? undefined,
+    },
+    alternates: {
+      canonical: `/seccion/${params.categoria}`,
     },
   };
 }

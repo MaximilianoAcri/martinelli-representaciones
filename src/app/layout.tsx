@@ -1,21 +1,58 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CotizacionProvider } from "@/components/CotizacionContext";
 import { CotizacionModal } from "@/components/CotizacionModal";
+import { AuthProvider } from "@/components/AuthContext";
+import { FloatingCart } from "@/components/FloatingCart";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { CotizacionToast } from "@/components/CotizacionToast";
+import { CookieBanner } from "@/components/CookieBanner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const jsonLdBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Martinelli Representaciones",
+  description:
+    "Agente comercial de chapas perforadas, mallas, grifería y materiales",
+  url: "https://martinellimateriales.com",
+  telephone: "+54 9 11 5599 29083",
+  email: "info@martinellimateriales.com",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "AR",
+    addressRegion: "Buenos Aires",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Argentina",
+  },
+  priceRange: "$$",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+  sameAs: [],
+  serviceType: [
+    "Venta de chapas perforadas",
+    "Venta de mallas metálicas",
+    "Venta de grifería industrial",
+    "Venta de materiales de construcción",
+    "Representaciones comerciales",
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://martinellimateriales.com"),
@@ -23,7 +60,8 @@ export const metadata: Metadata = {
     default: "Martinelli Representaciones - Chapas, Mallas, Grifería y Materiales",
     template: "%s | Martinelli Representaciones",
   },
-  description: "Tu agente comercial de confianza para chapas perforadas, mallas metálicas, grifería industrial y materiales. Envíos a todo Argentina. Precios competitivos y atención personalizada.",
+  description:
+    "Chapas perforadas, mallas metálicas, grifería industrial y materiales de construcción. Envíos a todo Argentina. Atención personalizada y mejores precios.",
   keywords: [
     "chapas perforadas",
     "mallas metálicas",
@@ -38,8 +76,8 @@ export const metadata: Metadata = {
     "TEFA",
     "grifería Argentina",
     "envíos Argentina",
-    "agente comercial materiales",
-    "representaciones comerciales",
+    "ventas materiales construction",
+    "tienda materiales argentina",
   ],
   authors: [{ name: "Martinelli Representaciones" }],
   creator: "Martinelli Representaciones",
@@ -54,8 +92,10 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: "https://martinellimateriales.com",
     siteName: "Martinelli Representaciones",
-    title: "Martinelli Representaciones - Chapas, Mallas, Grifería y Materiales",
-    description: "Tu agente comercial de confianza para chapas perforadas, mallas, grifería y materiales. Envíos a todo Argentina.",
+    title:
+      "Martinelli Representaciones - Chapas, Mallas, Grifería y Materiales",
+    description:
+      "Chapas perforadas, mallas, grifería y materiales de construcción. Envíos a todo Argentina.",
     images: [
       {
         url: "/og-image.png",
@@ -82,10 +122,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "google-site-verification-code",
-    yandex: "yandex-verification-code",
-  },
+  // Descomentar y completar con tus códigos reales de Search Console cuando los tengas:
+  // verification: {
+  //   google: "tu-codigo-de-google",
+  // },
 };
 
 export default function RootLayout({
@@ -94,74 +134,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
-        {/* Prevent flash of wrong theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('theme');
-                  if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  document.documentElement.classList.add(theme);
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Martinelli Representaciones",
-              description: "Agente comercial de chapas perforadas, mallas, grifería y materiales",
-              url: "https://martinellimateriales.com",
-              telephone: "+54 9 11 5599 29083",
-              email: "info@martinellimateriales.com",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "AR",
-                addressRegion: "Buenos Aires",
-              },
-              areaServed: {
-                "@type": "Country",
-                name: "Argentina",
-              },
-              priceRange: "$$",
-              openingHoursSpecification: {
-                "@type": "OpeningHoursSpecification",
-                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                opens: "09:00",
-                closes: "18:00",
-              },
-              sameAs: [],
-              serviceType: [
-                "Venta de chapas perforadas",
-                "Venta de mallas metálicas",
-                "Venta de grifería industrial",
-                "Venta de materiales de construcción",
-                "Representaciones comerciales",
-              ],
-            }),
-          }}
-        />
-      </head>
+    <html lang="es" suppressHydrationWarning className={plusJakarta.variable}>
       <body className="min-h-screen flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-        <ThemeProvider>
-          <CotizacionProvider>
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <CotizacionModal />
-          </CotizacionProvider>
-        </ThemeProvider>
+        {/* Archivo estático: evita el aviso de React 19 por <script> con children en el cliente */}
+        <Script
+          id="theme-init"
+          src="/theme-init.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="ld-json-business"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdBusiness),
+          }}
+        />
+        <AuthProvider>
+          <ThemeProvider>
+            <CotizacionProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <FloatingWhatsApp />
+              <FloatingCart />
+              <CotizacionModal />
+              <CotizacionToast />
+              <CookieBanner />
+            </CotizacionProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
