@@ -22,8 +22,8 @@ export function FloatingWhatsApp() {
     };
   }, []);
 
-  const phoneNumber = "5411599229083"; // El teléfono del cliente
-  const defaultMessage = "Hola! Necesito cotización para unos productos de Martinelli. ¿Me pasan precios?";
+  const phoneNumber = "5411599229083";
+  const defaultMessage = "Hola! Vi los productos de Martinelli y quiero cotizar. ¿Me ayudan?";
 
   return (
     <div className="fixed bottom-6 right-6 z-[50] flex flex-col items-end">
