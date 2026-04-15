@@ -12,6 +12,7 @@ export interface ItemCotizacion {
 
 interface CotizacionContextType {
   isOpen: boolean;
+  isHydrated: boolean;
   productoSeleccionado: Producto | null;
   items: ItemCotizacion[];
   toast: { show: boolean; mensaje: string };
@@ -123,7 +124,7 @@ export function CotizacionProvider({ children }: { children: ReactNode }) {
 
   return (
     <CotizacionContext.Provider value={{ 
-      isOpen, productoSeleccionado, items, toast,
+      isOpen, isHydrated, productoSeleccionado, items, toast,
       openModal, closeModal, addItem, removeItem, updateQuantity, clearItems, hideToast 
     }}>
       {children}
