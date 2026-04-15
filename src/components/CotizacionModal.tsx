@@ -426,17 +426,34 @@ export function CotizacionModal() {
                   </div>
                 )}
 
-                {/* Botón siguiente */}
-                <button
-                  onClick={() => setPaso(2)}
-                  disabled={items.length === 0}
-                  className="w-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-white dark:text-slate-900 px-6 py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 text-sm"
-                >
-                  Continuar con {items.length} producto{items.length !== 1 ? "s" : ""}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                {/* Botones de acción */}
+                <div className="space-y-3">
+                  {/* Continuar cotizando - cierra el modal para agregar más productos */}
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    disabled={items.length === 0}
+                    className="w-full bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed px-6 py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 text-sm"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Continuar cotizando
+                  </button>
+                  
+                  {/* Solicitar presupuesto - va al paso 2 */}
+                  <button
+                    type="button"
+                    onClick={() => setPaso(2)}
+                    disabled={items.length === 0}
+                    className="w-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-white dark:text-slate-900 px-6 py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 text-sm"
+                  >
+                    Solicitar presupuesto
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             )}
 
