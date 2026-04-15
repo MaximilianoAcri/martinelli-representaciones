@@ -20,12 +20,12 @@ export default function RegistroPage() {
     setError("");
 
     if (password !== passwordConfirm) {
-      setError("Las contraseñas no coinciden");
+      setError("Las contrasenas no coinciden");
       return;
     }
 
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
+      setError("La contrasena debe tener al menos 6 caracteres");
       return;
     }
 
@@ -36,11 +36,11 @@ export default function RegistroPage() {
       router.push("/mi-cuenta");
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
-        setError("Este email ya está registrado. Intentá iniciar sesión.");
+        setError("Este email ya esta registrado. Intenta iniciar sesion.");
       } else if (err.code === "auth/weak-password") {
-        setError("La contraseña es muy débil. Usá al menos 6 caracteres.");
+        setError("La contrasena es muy debil. Usa al menos 6 caracteres.");
       } else {
-        setError("Error al crear la cuenta. Intentá de nuevo.");
+        setError("Error al crear la cuenta. Intenta de nuevo.");
       }
     } finally {
       setLoading(false);
@@ -60,71 +60,125 @@ export default function RegistroPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative">
-      {/* Imagen de fondo */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&h=1080&fit=crop&q=80')" }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-800/80 to-blue-900/75 backdrop-blur-[2px]" />
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* Marketing - Left Side */}
+      <div className="w-full md:w-1/2 bg-gradient-to-br from-slate-800 via-slate-700 to-blue-900 p-6 md:p-12 flex flex-col justify-center order-1 md:order-1 relative overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-slate-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
 
-      <div className="w-full max-w-[90vw] sm:max-w-md relative z-10">
-        <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 px-6 sm:px-8 py-6 sm:py-8 text-center">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 backdrop-blur-sm border border-white/20">
-              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white">Crear Cuenta</h1>
-            <p className="text-slate-300 text-sm mt-1 hidden sm:block">Unite a Martinelli Representaciones</p>
+        <div className="max-w-lg relative z-10">
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-8 animate-fade-in">
+            <img src="/m.png" alt="M" className="w-12 h-12" />
+            <span className="text-2xl font-bold text-white">Martinelli</span>
           </div>
 
-          {/* Form */}
-          <div className="px-5 sm:px-8 py-6 sm:py-8">
-            {error && (
-              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-sm flex items-center gap-2">
-                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          {/* Headline */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in animate-delay-100">
+            Unite a mas de 1500 empresas que ya confian en nosotros
+          </h1>
+
+          {/* Beneficios */}
+          <div className="space-y-6 mt-8">
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-200">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Precios exclusivos</h3>
+                <p className="text-slate-300 text-sm mt-1">Acceso a precios de fabrica solo para clientes registrados.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-300">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 018 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Seguimiento de pedidos</h3>
+                <p className="text-slate-300 text-sm mt-1">Gestion todas tus cotizaciones desde tu cuenta.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-400">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.65-1.65a2.07 2.07 0 00.65-1.83V8a2 2 0 00-2-2h-1.26a9 9 0 01-6.33-2.67L5 4.93A2 2 0 003.41 3.26l1.59 1.59a9 9 0 016.33 2.67H12a2 2 0 002-2v-.77a2.07 2.07 0 00-.65-1.83L15 17z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Atencion personalizada</h3>
+                <p className="text-slate-300 text-sm mt-1">Contactamos directo con vos para cada cotizacion.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonio */}
+          <div className="mt-10 p-4 bg-white/10 rounded-xl border border-white/20 animate-fade-in animate-delay-500">
+            <p className="text-white text-sm italic">"Como intermediarios, nos pasan precios de fabrica que ninguno nos puede competir. Son nuestro proveedor oficial de mallas."</p>
+            <p className="text-slate-400 text-sm mt-2">- Hierros del Norte SRL, Salta</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Registro Form - Right Side */}
+      <div className="w-full md:w-1/2 bg-slate-50 dark:bg-slate-900 p-6 md:p-12 flex items-center justify-center order-2 md:order-2">
+        <div className="w-full max-w-md">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8">
+            {/* Header */}
+            <div className="text-center mb-6">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Crear cuenta</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Unete a Martinelli</p>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Nombre completo *
+                  Nombre completo
                 </label>
                 <input
                   type="text"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   required
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
-                  placeholder="Juan Pérez"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                  placeholder="Juan Perez"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Email *
+                  Email
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                   placeholder="tu@email.com"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Contraseña *
+                    Contrasena
                   </label>
                   <input
                     type="password"
@@ -132,13 +186,13 @@ export default function RegistroPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
-                    placeholder="••••••"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder="********"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Confirmar *
+                    Repetir
                   </label>
                   <input
                     type="password"
@@ -146,8 +200,8 @@ export default function RegistroPage() {
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     required
                     minLength={6}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
-                    placeholder="••••••"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder="********"
                   />
                 </div>
               </div>
@@ -155,7 +209,7 @@ export default function RegistroPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-slate-800 hover:bg-slate-900 dark:bg-slate-600 dark:hover:bg-slate-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -166,22 +220,22 @@ export default function RegistroPage() {
                     Creando cuenta...
                   </>
                 ) : (
-                  "Crear Cuenta"
+                  "Crear cuenta"
                 )}
               </button>
             </form>
 
             {/* Divider */}
-            <div className="flex items-center gap-3 sm:gap-4 my-5 sm:my-6">
+            <div className="flex items-center gap-4 my-6">
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
-              <span className="text-sm text-slate-500">o</span>
+              <span className="text-sm text-slate-400">o</span>
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
             </div>
 
             {/* Google */}
             <button
               onClick={handleGoogle}
-              className="w-full flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium text-sm text-slate-700 dark:text-slate-300"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium text-sm text-slate-700 dark:text-slate-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" />
@@ -189,14 +243,20 @@ export default function RegistroPage() {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
-              Registrarse con Google
+              Continuar con Google
             </button>
 
+            {/* Login */}
             <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
-              ¿Ya tenés cuenta?{" "}
-              <Link href="/login" className="text-slate-900 dark:text-white hover:underline font-semibold">
-                Iniciá sesión
+              Ya tenes cuenta?{" "}
+              <Link href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                Iniciar sesion
               </Link>
+            </p>
+
+            {/* Info */}
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-4">
+              Puedes cotizar sin cuenta por WhatsApp
             </p>
           </div>
         </div>

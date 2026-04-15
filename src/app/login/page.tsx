@@ -24,13 +24,11 @@ export default function LoginPage() {
     } catch (err: any) {
       console.error("Login error:", err);
       if (err.code === "auth/invalid-credential") {
-        setError("Email o contraseña incorrectos");
+        setError("Email o contrasena incorrectos");
       } else if (err.code === "auth/too-many-requests") {
-        setError("Demasiados intentos. Intentá de nuevo en unos minutos.");
+        setError("Demasiados intentos. Intenta de nuevo en unos minutos.");
       } else if (err.code === "auth/popup-closed-by-user") {
         setError("");
-      } else if (err.code === "auth/unauthorized-continue-url") {
-        setError("Dominio no autorizado. Configurá el dominio en Firebase Console.");
       } else if (err.message) {
         setError(err.message);
       } else {
@@ -48,46 +46,109 @@ export default function LoginPage() {
       router.push("/mi-cuenta");
     } catch (err: any) {
       if (err.code !== "auth/popup-closed-by-user") {
-        setError("Error al iniciar sesión con Google");
+        setError("Error al iniciar sesion con Google");
       }
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative">
-      {/* Imagen de fondo */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&h=1080&fit=crop&q=80')" }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/85 via-slate-800/80 to-blue-900/75 backdrop-blur-[2px]" />
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* Marketing - Left Side */}
+      <div className="w-full md:w-1/2 bg-gradient-to-br from-slate-800 via-slate-700 to-blue-900 p-6 md:p-12 flex flex-col justify-center order-1 md:order-1 relative overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-slate-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
 
-      <div className="w-full max-w-[90vw] sm:max-w-md relative z-10">
-        {/* Card */}
-        <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 px-6 sm:px-8 py-6 sm:py-8 text-center">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 backdrop-blur-sm border border-white/20">
-              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white">Iniciar Sesión</h1>
-            <p className="text-slate-300 text-sm mt-1 hidden sm:block">Accedé a tu cuenta de Martinelli</p>
+        <div className="max-w-lg relative z-10">
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-8 animate-fade-in">
+            <img src="/m.png" alt="M" className="w-12 h-12" />
+            <span className="text-2xl font-bold text-white">Martinelli</span>
           </div>
 
-          {/* Form */}
-          <div className="px-5 sm:px-8 py-6 sm:py-8">
-            {error && (
-              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl text-sm flex items-center gap-2">
-                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          {/* Headline */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in animate-delay-100">
+            Tu nexo directo con fabricas de calidad
+          </h1>
+
+          {/* Value props */}
+          <div className="space-y-6 mt-8">
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-200">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.336 2.828.89l1.104 1.48a1.5 1.5 0 01-.522 2.178l-.94.47c-.89.44-1.83.7-2.85.7-.87 0-1.7-.18-2.47-.5l-.86-.43a1.5 1.5 0 00-1.05.09l-.94.94a1.5 1.5 0 01-2.178.522L4.336 8.89A3.52 3.52 0 013 6.17C3 4.995 3.995 4 5.17 4h1.103z" />
                 </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Compra al precio de fabrica</h3>
+                <p className="text-slate-300 text-sm mt-1">Sin intermediarios. Directo de los mejores fabricantes.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-300">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Asesoria tecnica experta</h3>
+                <p className="text-slate-300 text-sm mt-1">Maxi o Franco te ayudan a elegir el producto exacto.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 animate-slide-up animate-delay-400">
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 012 2v2a2 2 0 01-2 2 2 2 0 01-2-2v-2a2 2 0 00-2-2H3.055z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-lg">Envios a todo el pais</h3>
+                <p className="text-slate-300 text-sm mt-1">Coordinamos la entrega segun tu ubicacion.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="flex gap-8 mt-10 pt-8 border-t border-white/20 animate-fade-in animate-delay-500">
+            <div>
+              <div className="text-2xl md:text-3xl font-bold text-white">20+</div>
+              <div className="text-slate-400 text-sm">Anos</div>
+            </div>
+            <div>
+              <div className="text-2xl md:text-3xl font-bold text-white">136+</div>
+              <div className="text-slate-400 text-sm">Productos</div>
+            </div>
+            <div>
+              <div className="text-2xl md:text-3xl font-bold text-white">1500+</div>
+              <div className="text-slate-400 text-sm">Clientes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Login Form - Right Side */}
+      <div className="w-full md:w-1/2 bg-slate-50 dark:bg-slate-900 p-6 md:p-12 flex items-center justify-center order-2 md:order-2">
+        <div className="w-full max-w-md">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6 md:p-8">
+            {/* Header */}
+            <div className="text-center mb-6">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Bienvenido de nuevo</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Ingresa a tu cuenta</p>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Email
@@ -97,14 +158,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                   placeholder="tu@email.com"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Contraseña
+                  Contrasena
                 </label>
                 <input
                   type="password"
@@ -112,15 +173,15 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 outline-none transition-all"
-                  placeholder="••••••••"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                  placeholder="********"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-slate-800 hover:bg-slate-900 dark:bg-slate-600 dark:hover:bg-slate-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -137,16 +198,16 @@ export default function LoginPage() {
             </form>
 
             {/* Divider */}
-            <div className="flex items-center gap-3 sm:gap-4 my-5 sm:my-6">
+            <div className="flex items-center gap-4 my-6">
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
-              <span className="text-sm text-slate-400 dark:text-slate-300">o</span>
+              <span className="text-sm text-slate-400">o</span>
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></div>
             </div>
 
-            {/* Google login */}
+            {/* Google */}
             <button
               onClick={handleGoogle}
-              className="w-full flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium text-sm text-slate-700 dark:text-slate-300"
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium text-sm text-slate-700 dark:text-slate-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" />
@@ -157,20 +218,18 @@ export default function LoginPage() {
               Continuar con Google
             </button>
 
-            {/* Link a registro */}
+            {/* Register */}
             <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
-              ¿No tenés cuenta?{" "}
-              <Link href="/registro" className="text-slate-900 dark:text-white hover:underline font-semibold">
+              No tienes cuenta?{" "}
+              <Link href="/registro" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
                 Registrate gratis
               </Link>
             </p>
 
             {/* Info */}
-            <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-xl">
-              <p className="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed">
-                💡 Registrarte te permite hacer pedidos, ver tu historial y recibir seguimiento personalizado. <strong>No es obligatorio</strong> — podés cotizar sin cuenta por WhatsApp.
-              </p>
-            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-4">
+              Puedes cotizar sin cuenta por WhatsApp
+            </p>
           </div>
         </div>
       </div>
