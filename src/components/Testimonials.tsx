@@ -6,27 +6,54 @@ const testimonials = [
     location: "Buenos Aires",
     quote: "Hace meses que empezamos a abastecernos con ellos. Hablar directo con Maxi o Franco nos resolvió un montón de dudas y siempre nos asesoran muy bien.",
     rating: 5,
-    initials: "EP"
+    initials: "EP",
+    type: "Corralón"
   },
   {
     author: "Constructora Norte S.A.",
     location: "Tucumán",
     quote: "Compramos chapa perforada para varias obras. La atención siempre es muy buena y los precios ayudan bastante a mejorar el costo de cada proyecto.",
     rating: 5,
-    initials: "CN"
+    initials: "CN",
+    type: "Constructora"
   },
   {
     author: "Constructora Rio Cuarto Tomborelli",
     location: "Córdoba",
     quote: "Llega todo en tiempo y forma. Franco tiene buena predisposición para resolver cualquier inconveniente.",
     rating: 5,
-    initials: "T"
+    initials: "T",
+    type: "Constructora"
+  },
+  {
+    author: "Hierros del Norte SRL",
+    location: "Salta",
+    quote: "Como intermediarios, nos pasan precios de fábrica que ninguno nos puede competir. Son nuestro proveedor oficial de mallas.",
+    rating: 5,
+    initials: "HN",
+    type: "Distribuidor"
+  },
+  {
+    author: "Techmader S.A.",
+    location: "Mendoza",
+    quote: "Compramos chapas decorativas para fachadas. La asesoría técnica de Maxi fue clave para elegir el diseño correcto.",
+    rating: 5,
+    initials: "TM",
+    type: "Estudio de Arquitectura"
+  },
+  {
+    author: "Ferretería Industrial Luna",
+    location: "Rosario",
+    quote: "Nosestockearon en cantidad con precios de fábrica. Nuestros clientes están muy satisfechos con la calidad.",
+    rating: 5,
+    initials: "FL",
+    type: "Ferretería"
   }
 ];
 
 export function Testimonials() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
       {testimonials.map((testimonio, idx) => (
         <div key={idx} className="bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-600 flex flex-col h-full hover:shadow-lg transition-shadow">
           <div className="flex text-amber-500 mb-4">

@@ -108,8 +108,8 @@ export default function TerminosPage() {
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">8. Atención al Cliente</h2>
             <p className="text-slate-600 dark:text-slate-300 mb-3">Nuestro equipo te atiende:</p>
             <ul className="text-slate-600 dark:text-slate-300 space-y-2 ml-4">
-              <li>• <strong>WhatsApp</strong>: 15 5599 29083 (Maxi o Franco)</li>
-              <li>• <strong>Email</strong>: info@martinellimateriales.com</li>
+              <li>• <strong>WhatsApp</strong>: 15 5992 90 83 (Maxi o Franco)</li>
+              <li>• <strong>Email</strong>: martinellirepresentaciones@gmail.com</li>
               <li>• <strong>Horario</strong>: Lunes a viernes de 9:00 a 18:00hs</li>
             </ul>
           </div>

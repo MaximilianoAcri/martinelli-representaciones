@@ -233,7 +233,7 @@ export default function NosotrosPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="https://wa.me/541559929083"
+              href="https://wa.me/5411599229083"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-200 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-semibold text-lg transition-colors inline-flex items-center gap-2"

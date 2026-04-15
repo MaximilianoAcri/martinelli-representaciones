@@ -40,7 +40,7 @@ export default function FaqPage() {
             ¿No encontraste la respuesta que buscabas?
           </p>
           <a 
-            href="https://wa.me/541559929083"
+            href="https://wa.me/5411599229083"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-6 py-3 rounded-xl font-semibold transition-colors"

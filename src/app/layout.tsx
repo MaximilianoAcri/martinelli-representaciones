@@ -12,6 +12,8 @@ import { FloatingCart } from "@/components/FloatingCart";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { CotizacionToast } from "@/components/CotizacionToast";
 import { CookieBanner } from "@/components/CookieBanner";
+import { LeadCapturePopup } from "@/components/LeadCapturePopup";
+import { MainContent } from "@/components/MainContent";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -27,7 +29,7 @@ const jsonLdBusiness = {
     "Agente comercial de chapas perforadas, mallas, grifería y materiales",
   url: "https://martinellimateriales.com",
   telephone: "+54 9 11 5599 29083",
-  email: "info@martinellimateriales.com",
+  email: "martinellirepresentaciones@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressCountry: "AR",
@@ -82,6 +84,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Martinelli Representaciones" }],
   creator: "Martinelli Representaciones",
   publisher: "Martinelli Representaciones",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -154,13 +160,14 @@ export default function RootLayout({
           <ThemeProvider>
             <CotizacionProvider>
               <Navbar />
-              <main className="flex-1">{children}</main>
+              <MainContent>{children}</MainContent>
               <Footer />
               <FloatingWhatsApp />
               <FloatingCart />
               <CotizacionModal />
               <CotizacionToast />
               <CookieBanner />
+              <LeadCapturePopup />
             </CotizacionProvider>
           </ThemeProvider>
         </AuthProvider>

@@ -261,7 +261,7 @@ export default function MiCuentaPage() {
             <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
               <p className="text-sm text-blue-700 dark:text-blue-300">
                 💡 Para modificar tus datos de contacto o de empresa, comunicate con nosotros por{" "}
-                <a href="https://wa.me/541559929083" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
+                <a href="https://wa.me/5411599229083" target="_blank" rel="noopener noreferrer" className="font-semibold underline">
                   WhatsApp
                 </a>.
               </p>

@@ -232,7 +232,10 @@ export async function POST(request: NextRequest) {
                 Hola <strong>${nombre}</strong> 👋
               </p>
               <p style="margin:15px 0;font-size:16px;color:#64748b;text-align:center;">
-                Tu solicitud de cotización fue recibida correctamente. 🎉
+                Tu solicitud de cotización fue recibida correctamente.
+              </p>
+              <p style="margin:10px 0;font-size:14px;color:#475569;text-align:center;">
+                Nos pondremos en contacto con vos a la brevedad para darte la mejor propuesta.
               </p>
             </td>
           </tr>
@@ -284,7 +287,7 @@ export async function POST(request: NextRequest) {
                 ¿Necesitás urgently? Contactanos directamente:
               </p>
               <p style="margin:10px 0 0;">
-                <a href="https://wa.me/541559929083" style="display:inline-block;background:#22c55e;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;">💬 WhatsApp</a>
+                <a href="https://wa.me/5411599229083" style="display:inline-block;background:#22c55e;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;">💬 WhatsApp</a>
               </p>
             </td>
           </tr>

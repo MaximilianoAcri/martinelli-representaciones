@@ -115,7 +115,7 @@ export default function CatalogoPage() {
 
           {/* Sidebar */}
           <aside className="hidden md:block w-56 lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 sticky top-24 shadow-sm">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 sticky top-24 shadow-sm">
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-base font-bold text-slate-900 dark:text-white">Filtros</h2>
                 {filtrosActivos > 0 && (
@@ -196,7 +196,7 @@ export default function CatalogoPage() {
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={() => setSidebarOpen(false)}
               ></div>
-              <aside className="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white overflow-y-auto p-6 shadow-2xl">
+              <aside className="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white dark:bg-slate-800 overflow-y-auto p-6 shadow-2xl">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white">Filtros</h2>
                   <button onClick={() => setSidebarOpen(false)} className="p-2">
@@ -301,11 +301,11 @@ export default function CatalogoPage() {
             )}
 
             {productosFiltrados.length === 0 ? (
-              <div className="text-center py-16 bg-white rounded-2xl border border-slate-200">
+              <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
                 <svg className="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h3 className="text-lg font-semibold text-slate-700 mb-2">No hay productos</h3>
+                <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">No hay productos</h3>
                 <p className="text-slate-500 dark:text-slate-300 mb-4">Probá con otros filtros</p>
                 <button
                   onClick={() => {
@@ -329,7 +329,7 @@ export default function CatalogoPage() {
         </div>
 
         {/* CTA */}
-        <section className="py-16 bg-white mt-12 rounded-2xl border border-slate-200">
+        <section className="py-16 bg-white dark:bg-slate-800 mt-12 rounded-2xl border border-slate-200 dark:border-slate-700">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
               ¿Necesitás una cotización personalizada?

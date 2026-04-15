@@ -22,12 +22,19 @@ export default function LoginPage() {
       await login(email, password);
       router.push("/mi-cuenta");
     } catch (err: any) {
+      console.error("Login error:", err);
       if (err.code === "auth/invalid-credential") {
         setError("Email o contraseña incorrectos");
       } else if (err.code === "auth/too-many-requests") {
         setError("Demasiados intentos. Intentá de nuevo en unos minutos.");
+      } else if (err.code === "auth/popup-closed-by-user") {
+        setError("");
+      } else if (err.code === "auth/unauthorized-continue-url") {
+        setError("Dominio no autorizado. Configurá el dominio en Firebase Console.");
+      } else if (err.message) {
+        setError(err.message);
       } else {
-        setError("Error al iniciar sesión. Intentá de nuevo.");
+        setError("Error: " + err.code);
       }
     } finally {
       setLoading(false);

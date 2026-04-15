@@ -125,8 +125,8 @@ export default function PrivacidadPage() {
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">9. Contacto</h2>
             <p className="text-slate-600 dark:text-slate-300 mb-3">Para preguntas sobre privacidad:</p>
             <ul className="text-slate-600 dark:text-slate-300 space-y-2 ml-4">
-              <li>• <strong>WhatsApp</strong>: 15 5599 29083</li>
-              <li>• <strong>Email</strong>: info@martinellimateriales.com</li>
+              <li>• <strong>WhatsApp</strong>: 15 5992 90 83</li>
+              <li>• <strong>Email</strong>: martinellirepresentaciones@gmail.com</li>
             </ul>
           </div>
 

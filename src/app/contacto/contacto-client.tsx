@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { categorias } from "@/data/productos";
 import { db } from "@/lib/firebase-client";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -68,6 +69,12 @@ export default function ContactoClient() {
           <p className="text-slate-300 dark:text-white text-lg">
             Escribinos y te ayudamos a encontrar lo que necesitás
           </p>
+          <Link 
+            href="/fabricantes" 
+            className="inline-block mt-3 text-blue-300 hover:text-white text-sm underline"
+          >
+            ¿Sos fabricante? Click aquí
+          </Link>
         </div>
       </section>
 
@@ -80,7 +87,7 @@ export default function ContactoClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* WhatsApp */}
             <a
-              href="https://wa.me/541559929083"
+              href="https://wa.me/5411599229083"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 bg-slate-900 hover:bg-slate-800 text-white p-6 rounded-xl transition-colors"
@@ -98,7 +105,7 @@ export default function ContactoClient() {
 
             {/* Email */}
             <a
-              href="mailto:info@martinellimateriales.com"
+              href="mailto:martinellirepresentaciones@gmail.com"
               className="flex items-center gap-4 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white p-6 rounded-xl transition-colors"
             >
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
@@ -108,7 +115,7 @@ export default function ContactoClient() {
               </div>
               <div>
                 <p className="font-semibold text-lg">Envianos un email</p>
-                <p className="text-slate-500 dark:text-slate-300">info@martinellimateriales.com</p>
+                <p className="text-slate-500 dark:text-slate-300">martinellirepresentaciones@gmail.com</p>
               </div>
             </a>
           </div>
@@ -234,6 +241,47 @@ export default function ContactoClient() {
         </div>
       </section>
 
+      {/* Horarios */}
+      <section className="py-12 bg-white dark:bg-slate-800">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-50 dark:bg-slate-700 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Horarios de Atención
+              </h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
+                <li className="flex justify-between"><span>Lunes</span><span>9:00 - 18:00</span></li>
+                <li className="flex justify-between"><span>Martes</span><span>9:00 - 18:00</span></li>
+                <li className="flex justify-between"><span>Miércoles</span><span>9:00 - 18:00</span></li>
+                <li className="flex justify-between"><span>Jueves</span><span>9:00 - 18:00</span></li>
+                <li className="flex justify-between"><span>Viernes</span><span>9:00 - 18:00</span></li>
+                <li className="flex justify-between text-slate-400"><span>Sábado</span><span>Cerrado</span></li>
+                <li className="flex justify-between text-slate-400"><span>Domingo</span><span>Cerrado</span></li>
+              </ul>
+            </div>
+            <div className="bg-slate-50 dark:bg-slate-700 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Zona de Atención
+              </h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
+                <li>📍 Caseros, Buenos Aires</li>
+                <li>🚚 Envíos a todo el país</li>
+                <li>📱 WhatsApp: 15 5992 90 83</li>
+                <li>✉️ martinellirepresentaciones@gmail.com</li>
+                <li>🕐 Lun - Vie: 09:00 hs a 18:00 hs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Mapa */}
       <section className="py-12 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-3xl"></div>
@@ -255,7 +303,7 @@ export default function ContactoClient() {
             ></iframe>
           </div>
           <p className="text-center text-slate-600 mt-4">
-            Estamos en Zona Norte, Buenos Aires. Coordinamos la entrega con los fabricantes.
+            Estamos en Caseros, Buenos Aires. Coordinamos la entrega con los fabricantes.
           </p>
         </div>
       </section>

@@ -289,7 +289,7 @@ export function CotizacionModal() {
               <div className="p-5">
                 {/* WhatsApp directo */}
                 <a
-                  href="https://wa.me/541559929083"
+                  href="https://wa.me/5411599229083"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors mb-4"
