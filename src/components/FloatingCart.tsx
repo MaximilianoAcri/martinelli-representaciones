@@ -7,10 +7,18 @@ export function FloatingCart() {
 
   if (items.length === 0) return null;
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("FloatingCart clicked, opening modal with", items.length, "items");
+    openModal();
+  };
+
   return (
     <button
-      onClick={() => openModal()}
-      className="fixed bottom-24 right-6 z-[60] bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 font-medium"
+      type="button"
+      onClick={handleClick}
+      className="fixed bottom-24 right-6 z-[60] bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 font-medium cursor-pointer"
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
