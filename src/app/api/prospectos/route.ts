@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { db, isFirebaseReady } from '@/lib/firebase-admin';
 
 // Cachear por 1 minuto (60 segundos) - para reducir lecturas
 export const revalidate = 60;
@@ -8,6 +8,10 @@ export const dynamic = 'force-dynamic';
 // POST - Importar prospectos desde JSON (enviado por el cliente)
 export async function POST(request: NextRequest) {
   try {
+    if (!isFirebaseReady()) {
+      return NextResponse.json({ error: "Firebase no configurado" }, { status: 503 });
+    }
+    
     const body = await request.json();
     const { prospectos, provincia } = body;
 

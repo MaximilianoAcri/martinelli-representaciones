@@ -55,12 +55,12 @@ export function ProductCard({ producto, variant = "default" }: ProductCardProps)
   const tieneImagenLocal = producto.imagen && producto.imagen.startsWith('/images/');
   
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 h-full flex flex-col group overflow-hidden relative">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 h-full flex flex-col group overflow-hidden relative card-premium">
       
       {/* Badge de nuevo producto */}
       {producto.nuevo && (
-        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-          ✨ NUEVO
+        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
+          NUEVO
         </div>
       )}
 
@@ -128,7 +128,7 @@ export function ProductCard({ producto, variant = "default" }: ProductCardProps)
       {/* Contenido premium */}
       <div className="p-5 flex-1 flex flex-col">
         {/* Nombre */}
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 leading-tight group-hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+        <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-3 leading-tight group-hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
           {producto.nombre}
         </h3>
 

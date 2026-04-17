@@ -9,6 +9,8 @@ import { HeroSection } from "@/components/HeroSection";
 import { Testimonials } from "@/components/Testimonials";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Newsletter } from "@/components/Newsletter";
+import { HeroCarrousel } from "@/components/HeroCarrousel";
+import { CategoryCarrousel } from "@/components/CategoryCarrousel";
 
 export const metadata: Metadata = {
   title: "Inicio | Martinelli Representaciones",
@@ -129,80 +131,7 @@ export default function Home() {
 
       {/* 3. CATEGORÍAS - Lo que ofrecés */}
       <AnimatedSection direction="up" delay={150}>
-        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
-          <div className="absolute top-1/2 left-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 right-0 w-64 h-64 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
-          
-          <div className="max-w-7xl mx-auto px-4 relative">
-            <div className="text-center mb-12">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wider text-sm">
-                Catálogo
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2 mb-4">
-                Nuestras Secciones
-              </h2>
-              <p className="text-slate-600 dark:text-white text-lg max-w-2xl mx-auto">
-                Explorá todas nuestras categorías y encontrá los materiales que necesitás para tu proyecto.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {categorias.map((categoria) => (
-                <Link
-                  key={categoria.id}
-                  href={`/seccion/${categoria.id}`}
-                  className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500"
-                >
-                  <div className="relative h-56 overflow-hidden">
-                    <Image 
-                      src={categoria.imagen} 
-                      alt={categoria.nombre}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent"></div>
-                    
-                    <div className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                      <span className="text-white text-sm font-medium">{categoria.icono}</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="text-lg font-bold text-white dark:text-slate-100 mb-1 group-hover:text-slate-300 transition-colors">
-                      {categoria.nombre}
-                    </h3>
-                    
-                    {categoria.subcategorias && (
-                      <p className="text-slate-300 text-xs">
-                        {categoria.subcategorias.length} tipos disponibles
-                      </p>
-                    )}
-                    
-                    <div className="mt-3 flex items-center text-white/80 font-medium text-sm group-hover:text-white">
-                      <span>Ver productos</span>
-                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            <div className="text-center mt-10">
-              <Link 
-                href="/catalogo" 
-                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 hover:shadow-xl hover:-translate-y-1 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300"
-              >
-                Ver Catálogo Completo
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </section>
+        <CategoryCarrousel />
       </AnimatedSection>
 
       {/* 4. NEWSLETTER - Captura cuando está interesado */}

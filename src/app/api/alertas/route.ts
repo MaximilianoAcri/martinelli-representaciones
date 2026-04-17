@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { db, isFirebaseReady } from '@/lib/firebase-admin';
 
 // Función helpers para alertas automáticas
 export async function GET() {
   try {
+    if (!isFirebaseReady()) {
+      return NextResponse.json({ error: "Firebase no configurado" }, { status: 503 });
+    }
+    
     const ahora = new Date();
     const hace24h = new Date(ahora.getTime() - 24 * 60 * 60 * 1000);
     const hace48h = new Date(ahora.getTime() - 48 * 60 * 60 * 1000);

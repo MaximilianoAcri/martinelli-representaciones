@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { db, isFirebaseReady } from '@/lib/firebase-admin';
 
 // Cachear por 5 minutos (300 segundos) - reduce lecturas de Firebase drásticamente
 export const revalidate = 300;
@@ -338,6 +338,12 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if Firebase is ready
+    if (!isFirebaseReady()) {
+      console.warn("Firebase not initialized - returning empty cotizaciones");
+      return NextResponse.json({ cotizaciones: [] });
+    }
+    
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
 

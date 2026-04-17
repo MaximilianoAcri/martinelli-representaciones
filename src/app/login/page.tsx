@@ -70,7 +70,7 @@ export default function LoginPage() {
 
           {/* Headline */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in animate-delay-100">
-            Tu nexo directo con fabricas de calidad
+            Tu nexo directo con fábricas de calidad
           </h1>
 
           {/* Value props */}
@@ -165,7 +165,7 @@ export default function LoginPage() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Contrasena
+                  Contraseña
                 </label>
                 <input
                   type="password"
@@ -220,7 +220,7 @@ export default function LoginPage() {
 
             {/* Register */}
             <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
-              No tienes cuenta?{" "}
+              ¿No tienes cuenta?{" "}
               <Link href="/registro" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
                 Registrate gratis
               </Link>
@@ -228,7 +228,7 @@ export default function LoginPage() {
 
             {/* Info */}
             <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-4">
-              Puedes cotizar sin cuenta por WhatsApp
+              Podés cotizar sin cuenta por WhatsApp
             </p>
           </div>
         </div>

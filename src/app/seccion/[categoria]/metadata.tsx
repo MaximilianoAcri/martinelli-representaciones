@@ -28,8 +28,9 @@ export const metadata: Record<string, Metadata> = {
   },
 };
 
-export function generateMetadata({ params }: { params: { categoria: string } }): Metadata {
-  const categoriaMetadata = metadata[params.categoria] || {
+export async function generateMetadata({ params }: { params: Promise<{ categoria: string }> }): Promise<Metadata> {
+  const { categoria } = await params;
+  const categoriaMetadata = metadata[categoria] || {
     title: "Productos | Martinelli Representaciones",
     description: "Chapas, Mallas, Grifería y Materiales de Construcción",
   };
@@ -41,7 +42,7 @@ export function generateMetadata({ params }: { params: { categoria: string } }):
       description: categoriaMetadata.description ?? undefined,
     },
     alternates: {
-      canonical: `/seccion/${params.categoria}`,
+      canonical: `/seccion/${categoria}`,
     },
   };
 }

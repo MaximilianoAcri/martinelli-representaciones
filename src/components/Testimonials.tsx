@@ -28,7 +28,7 @@ const testimonials = [
   {
     author: "Hierros del Norte SRL",
     location: "Salta",
-    quote: "Como intermediarios, nos pasan precios de fábrica que ninguno nos puede competir. Son nuestro proveedor oficial de mallas.",
+    quote: "Como intermediarios, nos pasan precios de fábrica que ninguno nos puede competir. Le compramos a ellos hace 3 años",
     rating: 5,
     initials: "HN",
     type: "Distribuidor"
@@ -36,18 +36,18 @@ const testimonials = [
   {
     author: "Techmader S.A.",
     location: "Mendoza",
-    quote: "Compramos chapas decorativas para fachadas. La asesoría técnica de Maxi fue clave para elegir el diseño correcto.",
+    quote: "Compramos chapas decorativas para fachadas en barrios privados y llego todo bien.",
     rating: 5,
     initials: "TM",
     type: "Estudio de Arquitectura"
   },
   {
-    author: "Ferretería Industrial Luna",
-    location: "Rosario",
-    quote: "Nosestockearon en cantidad con precios de fábrica. Nuestros clientes están muy satisfechos con la calidad.",
+    author: "Corralón San Cayetano",
+    location: "Santa Fe",
+    quote: "Nos estockeamos con ellos hace años. Siempre de 10.",
     rating: 5,
-    initials: "FL",
-    type: "Ferretería"
+    initials: "CS",
+    type: "Corralón"
   }
 ];
 

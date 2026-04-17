@@ -1,13 +1,364 @@
 "use client";
 
-import { categorias } from "@/data/productos";
+import { categorias, productos } from "@/data/productos";
 import { useState, useMemo, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import { ProductCard } from "@/components/ProductCard";
-import { productos } from "@/data/productos";
 import { useCotizacion } from "@/components/CotizacionContext";
 import { WhatsAppButton } from "@/components/CotizacionButton";
+import { Producto } from "@/types";
+
+// Función para obtener el nombre base (sin calibre, número, etc.)
+function getNombreBase(nombre: string) {
+  return nombre
+    .replace(/\s+(Calibre|Nº|Numero|Número)\s*\d+[\d\.]*/gi, '')
+    .replace(/\s+(2\.5"|2"|3"|4"|5"|6"|1\.5"|1"|75gr|90gr|110gr)\s*$/gi, '')
+    .replace(/\s+\d+[\d\.]*(mm|micrones|mts?|metros?)\s*$/gi, '')
+    .trim();
+}
+
+// Función para obtener imagen según el nombre base
+function getImagenPorNombre(nombreBase: string): string {
+  const lower = nombreBase.toLowerCase();
+  
+  if (lower.includes('metal desplegado')) {
+    return '/images/productos/metal desplegado.jpg';
+  }
+  if (lower.includes('guardacanto') && !lower.includes('pvc')) {
+    return '/images/productos/guardacantogalvanizado.webp_v=638907982415030000';
+  }
+  if (lower.includes('guardacanto') && (lower.includes('pvc') || lower.includes('cantonera'))) {
+    return '/images/productos/cantonerapvc.jpg';
+  }
+  if (lower.includes('malla') && lower.includes('fibra')) {
+    return '/images/productos/malla de fibra de vidrio.webp';
+  }
+  if (lower.includes('malla') && lower.includes('seguridad')) {
+    return '/images/productos/malla de seguridad naranja.jpg';
+  }
+  if (lower.includes('malla')) {
+    return '/images/productos/malla metalica.webp';
+  }
+  if (lower.includes('alambre') && lower.includes('tejido') && lower.includes('romboidal')) {
+    return '/images/productos/alambre tejido romboidal.webp';
+  }
+  // Alambre Negro (todos los calibres)
+  if ((lower.includes('alambre') && lower.includes('negro') && lower.includes('recocido')) || lower.includes('negro recocido')) {
+    return '/images/productos/alambre Negro Recocido Fraccionado.webp';
+  }
+  if (lower.includes('alambre') && lower.includes('galvanizado')) {
+    return '/images/productos/alambre galvanizado.jpg';
+  }
+  if ((lower.includes('alambre') && (lower.includes('san martin') || lower.includes('sanmartin'))) || lower.includes('san martin')) {
+    return '/images/productos/alambre sanmartin.webp';
+  }
+  if ((lower.includes('alambre') && lower.includes('invencible')) || lower.includes('invencible')) {
+    return '/images/productos/alambre invencible.jpg';
+  }
+  if (lower.includes('alambre') && (lower.includes('puas') || lower.includes('pua'))) {
+    return '/images/productos/alambredepuas.webp';
+  }
+  if (lower.includes('flatwrap')) {
+    return '/images/productos/flatwrap.jpeg';
+  }
+  if (lower.includes('concertina') && lower.includes('cruzada')) {
+    return '/images/productos/concertina cruzada.webp';
+  }
+  if (lower.includes('concertina')) {
+    return '/images/productos/concertina.jpg';
+  }
+  if (lower.includes('torniquete') && lower.includes('mini')) {
+    return '/images/productos/torniquete mini.webp';
+  }
+  if (lower.includes('torniquete') && lower.includes('reforzado')) {
+    return '/images/productos/torniquete doble reforzado.webp';
+  }
+  if (lower.includes('torniquete') && lower.includes('doble')) {
+    return '/images/productos/Torniquete doble para mayor tensión. 500 kg por lado..jpg';
+  }
+  if (lower.includes('torniquete')) {
+    return '/images/productos/torniquete.jpg';
+  }
+  if (lower.includes('tornillo') && lower.includes('mecha')) {
+    return '/images/productos/Tornillo Autoperforante Punta Mecha.webp';
+  }
+  if (lower.includes('tornillo') && lower.includes('aguja')) {
+    return '/images/productos/Tornillo autoperforante con punta aguja de 2.5 pulgadas..webp';
+  }
+  if (lower.includes('tornillo')) {
+    return '/images/productos/clavos.webp';
+  }
+  if (lower.includes('clavo') && lower.includes('parís')) {
+    return '/images/productos/Clavos Punta París.webp';
+  }
+  if (lower.includes('clavo') && lower.includes('espiral')) {
+    return '/images/productos/clavos espiralados.webp';
+  }
+  if (lower.includes('clavo') && lower.includes('paragua')) {
+    return '/images/productos/clavos paragua.webp';
+  }
+  if (lower.includes('clavo') && lower.includes('cabeza') && lower.includes('plomo')) {
+    return '/images/productos/clavos cabeza de plomo.png';
+  }
+  if (lower.includes('clavo') && lower.includes('cabeza') && lower.includes('perdida')) {
+    return '/images/productos/clavos cabeza perdida.webp';
+  }
+  if (lower.includes('clavo') && lower.includes('cobre')) {
+    return '/images/productos/clavos cobre fraccionado.jpg';
+  }
+  if (lower.includes('clavo')) {
+    return '/images/productos/clavos.webp';
+  }
+  if (lower.includes('hierro') && lower.includes('dulce')) {
+    return '/images/productos/hierro dulce.webp';
+  }
+  if (lower.includes('media') && lower.includes('sombra')) {
+    return '/images/productos/Media Sombra 80% Verde.webp';
+  }
+  if (lower.includes('rafia') && lower.includes('verde')) {
+    return '/images/productos/Rafia Cubre Cerco 110gr Verde.jpg';
+  }
+  if (lower.includes('rafia')) {
+    return '/images/productos/Rafia Cubre Cerco 110gr Verde.jpg';
+  }
+  if (lower.includes('chapa') && lower.includes('decorativa')) {
+    return '/images/productos/malla metalica.webp';
+  }
+  // Por defecto, metal desplegado
+  return '/images/productos/metal desplegado.jpg';
+}
+
+// Componente para producto agrupado con variantes desplegables
+function ProductoAgrupado({ 
+  grupo, 
+  index, 
+  onCotizar,
+  variant = "lista"
+}: { 
+  grupo: { base: string; principal: Producto; variantes: Producto[]; total: number };
+  index: number;
+  onCotizar: (p: Producto) => void;
+  variant?: "grid" | "lista";
+}) {
+  const [expandido, setExpandido] = useState(false);
+  const [descripcionExpandida, setDescripcionExpandida] = useState(false);
+  
+  const tieneVariantes = grupo.variantes.length > 0;
+  const descripcionLarga = grupo.principal.descripcion && grupo.principal.descripcion.length > 80;
+  
+  // Vista Grid: tarjeta con imagen,info y variantes dentro
+  if (variant === "grid") {
+    return (
+      <div 
+        className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+        style={{ animationDelay: `${index * 50}ms` }}
+      >
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 h-full flex flex-col group overflow-hidden">
+          {/* Imagen - usar función para asignar imagen según nombre base */}
+          <div className="h-56 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex-shrink-0 relative overflow-hidden">
+            {(() => {
+              const imagenUrl = grupo.principal.imagen || getImagenPorNombre(grupo.base);
+              return imagenUrl ? (
+                <Image 
+                  src={imagenUrl} 
+                  alt={grupo.principal.nombre}
+                  fill
+                  className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-12 h-12 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+              );
+            })()}
+            {/* Badge de cantidad */}
+            {tieneVariantes && (
+              <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                {grupo.total} modelos
+              </div>
+            )}
+          </div>
+          
+          {/* Contenido */}
+          <div className="p-5 flex-1 flex flex-col">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2 leading-tight">
+              {grupo.base}
+            </h3>
+            {/* Descripción con toggle */}
+            {descripcionLarga ? (
+              <div className="mb-3">
+                <p className={`text-sm text-slate-500 dark:text-slate-400 ${descripcionExpandida ? '' : 'line-clamp-2'}`}>
+                  {grupo.principal.descripcion}
+                </p>
+                <button 
+                  onClick={() => setDescripcionExpandida(!descripcionExpandida)}
+                  className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-1"
+                >
+                  {descripcionExpandida ? 'Ver menos' : 'Ver más'}
+                </button>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                {grupo.principal.descripcion}
+              </p>
+            )}
+            
+            {/* Medidas del principal */}
+            <div className="text-base text-slate-700 dark:text-slate-300 font-medium mb-4">
+              {grupo.principal.medidas}
+            </div>
+            
+            {/* Toggle variantes */}
+            {tieneVariantes && (
+              <button
+                onClick={() => setExpandido(!expandido)}
+                className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-4 flex items-center gap-2"
+              >
+                {expandido ? "▼ Ocultar" : "▶ Ver"} {grupo.variantes.length} medidas
+              </button>
+            )}
+            
+          </div>
+          
+          {/* Variantes desplegables */}
+          {expandido && tieneVariantes && (
+            <div className="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 p-3 max-h-48 overflow-y-auto">
+              {grupo.variantes.map((variante) => (
+                <div key={variante.id} className="flex justify-between items-center py-1.5 border-b border-slate-200 dark:border-slate-700 last:border-0">
+                  <div>
+                    <span className="text-xs text-slate-600 dark:text-slate-300">
+                      {variante.medidas}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => onCotizar(variante)}
+                    className="text-blue-600 hover:text-blue-700 text-xs font-medium"
+                  >
+                    Cotizar
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {/* Botón principal */}
+          <div className="p-3 border-t border-slate-100 dark:border-slate-700">
+            <button
+              onClick={() => onCotizar(grupo.principal)}
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2"
+            >
+              <span>Solicitar Cotización</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Vista Lista: formato tabla sin imagen
+  return (
+    <div 
+      className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+      style={{ animationDelay: `${index * 30}ms` }}
+    >
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all group">
+        {/* Principal */}
+        <div className="p-4">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            {/* Producto */}
+            <div className="col-span-4">
+              <h4 className="font-semibold text-slate-800 dark:text-white group-hover:text-blue-500 transition-colors">
+                {grupo.principal.nombre}
+              </h4>
+              <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1 mt-1">
+                {grupo.principal.descripcion}
+              </p>
+              {tieneVariantes && (
+                <button
+                  onClick={() => setExpandido(!expandido)}
+                  className="text-xs text-blue-600 dark:text-blue-400 font-medium mt-2 flex items-center gap-1"
+                >
+                  {expandido ? "Ocultar" : "Ver"} {grupo.total} variantes
+                  <svg className={`w-4 h-4 transition-transform ${expandido ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              )}
+            </div>
+            
+            {/* Medidas principal */}
+            <div className="col-span-4">
+              <div className="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Medidas</div>
+              <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                {grupo.principal.medidas || "—"}
+              </span>
+            </div>
+            
+            {/* Unidad */}
+            <div className="col-span-2">
+              <div className="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Unidad</div>
+              <span className="text-sm text-slate-600 dark:text-slate-400">
+                {grupo.principal.unidad}
+              </span>
+            </div>
+            
+            {/* Botón */}
+            <div className="col-span-2 flex justify-end">
+              <button
+                onClick={() => onCotizar(grupo.principal)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:shadow-lg whitespace-nowrap"
+              >
+                Cotizar
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Variantes desplegables */}
+        {expandido && tieneVariantes && (
+          <div className="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+            {grupo.variantes.map((variante, i) => (
+              <div key={variante.id} className="p-3 border-b border-slate-200 dark:border-slate-700 last:border-0">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                  <div className="col-span-4 md:col-span-4">
+                    <span className="text-sm text-slate-600 dark:text-slate-300 ml-4">
+                      {variante.nombre.replace(grupo.base, '').trim() || variante.medidas}
+                    </span>
+                  </div>
+                  <div className="col-span-4">
+                    <span className="text-sm text-slate-700 dark:text-slate-300">
+                      {variante.medidas}
+                    </span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="text-sm text-slate-500 dark:text-slate-400">
+                      {variante.unidad}
+                    </span>
+                  </div>
+                  <div className="col-span-2 flex justify-end">
+                    <button
+                      onClick={() => onCotizar(variante)}
+                      className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    >
+                      Cotizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function SeccionClient() {
   const params = useParams();
@@ -16,10 +367,11 @@ export function SeccionClient() {
   const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState<string | null>(null);
   const [busqueda, setBusqueda] = useState("");
   const [ordenarPor, setOrdenarPor] = useState<
-    "nombre" | "precio-asc" | "precio-desc"
+    "nombre" | "medidas" | "aplicaciones"
   >("nombre");
+  const [vista, setVista] = useState<"grid" | "lista">("grid");
   const { openModal } = useCotizacion();
-  
+   
   const categoria = useMemo(() => 
     categorias.find(c => c.id === categoriaId),
     [categoriaId]
@@ -57,14 +409,34 @@ export function SeccionClient() {
     // Ordenar
     if (ordenarPor === "nombre") {
       filtered.sort((a, b) => a.nombre.localeCompare(b.nombre));
-    } else if (ordenarPor === "precio-asc") {
-      filtered.sort((a, b) => a.precio - b.precio);
-    } else if (ordenarPor === "precio-desc") {
-      filtered.sort((a, b) => b.precio - a.precio);
+    } else if (ordenarPor === "medidas") {
+      filtered.sort((a, b) => (a.medidas || "").localeCompare(b.medidas || ""));
+    } else if (ordenarPor === "aplicaciones") {
+      filtered.sort((a, b) => (b.aplicaciones?.length || 0) - (a.aplicaciones?.length || 0));
     }
     
     return filtered;
   }, [categoriaId, subcategoriaSeleccionada, busqueda, ordenarPor]);
+
+  // Agrupar productos por nombre base (variantes desplegables)
+  const productosAgrupados = useMemo(() => {
+    const grupos: { [key: string]: typeof productos } = {};
+    
+    productosFiltrados.forEach(p => {
+      const base = getNombreBase(p.nombre);
+      if (!grupos[base]) {
+        grupos[base] = [];
+      }
+      grupos[base].push(p);
+    });
+    
+    return Object.entries(grupos).map(([base, items]) => ({
+      base,
+      principal: items[0],
+      variantes: items.slice(1),
+      total: items.length
+    })).sort((a, b) => a.base.localeCompare(b.base));
+  }, [productosFiltrados]);
 
   // Contador de productos por subcategoría
   const getCount = (subId: string | null) => {
@@ -204,22 +576,45 @@ export function SeccionClient() {
 
             {/* Ordenar y resultado count */}
             <div className="flex items-center gap-4">
+              {/* Toggle Vista */}
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-700 p-1 rounded-xl">
+                <button
+                  onClick={() => setVista("grid")}
+                  className={`p-2 rounded-lg transition-all ${vista === "grid" ? "bg-white dark:bg-slate-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                  title="Vista Grid"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setVista("lista")}
+                  className={`p-2 rounded-lg transition-all ${vista === "lista" ? "bg-white dark:bg-slate-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                  title="Vista Lista"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
+
               <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 px-4 py-2 rounded-xl">
+                <span className="text-xs sm:text-sm text-slate-600 dark:text-slate-200 font-medium hidden sm:inline">Ordenar:</span>
                 <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                 </svg>
-                <select
+<select
                   value={ordenarPor}
                   onChange={(e) =>
                     setOrdenarPor(
-                      e.target.value as "nombre" | "precio-asc" | "precio-desc"
+                      e.target.value as "nombre" | "medidas" | "aplicaciones"
                     )
                   }
-                  className="bg-transparent text-sm font-medium text-slate-700 dark:text-slate-300 outline-none cursor-pointer"
+                  className="bg-transparent text-slate-700 dark:text-slate-200 text-sm font-medium outline-none cursor-pointer [&>option]:bg-white [&>option]:text-slate-700"
                 >
                   <option value="nombre">Nombre A-Z</option>
-                  <option value="precio-asc">Menor Precio</option>
-                  <option value="precio-desc">Mayor Precio</option>
+                  <option value="medidas">Medidas</option>
+                  <option value="aplicaciones">Más aplicaciones</option>
                 </select>
               </div>
               
@@ -235,9 +630,9 @@ export function SeccionClient() {
       {subcategoriasConProductos.length > 0 && (
         <section className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 py-6">
-            {/* Scroll container con gradientes en los bordes */}
+            {/* Contenedor de subcategorías - sin scroll horizontal */}
             <div className="relative">
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide mask-fade">
+              <div className="flex flex-wrap gap-3 pb-2">
                 {/* Botón "Todos" */}
                 <button
                   onClick={() => setSubcategoriaSeleccionada(null)}
@@ -262,7 +657,7 @@ export function SeccionClient() {
                     <button
                       key={sub.id}
                       onClick={() => setSubcategoriaSeleccionada(isActive ? null : sub.id)}
-                      className={`group flex-shrink-0 px-6 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 ${
+className={`group px-6 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 ${
                         isActive 
                           ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30" 
                           : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
@@ -351,16 +746,41 @@ export function SeccionClient() {
                 Ver todos los productos
               </button>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {productosFiltrados.map((producto, index) => (
+          ) : vista === "grid" ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
+              {productosAgrupados.map((grupo, index) => (
                 <div 
-                  key={producto.id}
-                  className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+                  key={grupo.base}
+                  className="animate-in fade-in slide-in-from-bottom-4 duration-300 h-full"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <ProductCard producto={producto} />
+                  <ProductoAgrupado 
+                    grupo={grupo} 
+                    index={index} 
+                    onCotizar={openModal} 
+                    variant="grid"
+                  />
                 </div>
+              ))}
+            </div>
+          ) : (
+            /* Vista Lista - estilo tabla con variantes desplegables */
+            <div className="flex flex-col gap-3">
+              {/* Header de tabla */}
+              <div className="hidden md:grid grid-cols-12 gap-4 px-4 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <div className="col-span-4">Producto</div>
+                <div className="col-span-4">Medidas disponibles</div>
+                <div className="col-span-2">Unidad</div>
+                <div className="col-span-2 text-right">Acción</div>
+              </div>
+              
+              {productosAgrupados.map((grupo, index) => (
+                <ProductoAgrupado 
+                  key={grupo.base}
+                  grupo={grupo}
+                  index={index}
+                  onCotizar={openModal}
+                />
               ))}
             </div>
           )}

@@ -47,3 +47,22 @@ credentials/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# System Zero (no needed in repo)
+.sz/
+.sz.yaml
+install-sz.sh
+
+# Virtual environment
+.venv/
+
+# Firebase (local config)
+firebase-debug.log*
+firestore-debug.log*
+firebase-debug.log
+firestore-debug.log
+
+# Proposals/Memoria (no subir a GitHub)
+docs/
+issue-*.md
+human-approval-system.md

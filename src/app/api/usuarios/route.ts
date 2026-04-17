@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/firebase-admin";
+import { db, isFirebaseReady } from "@/lib/firebase-admin";
 
 export async function POST(request: NextRequest) {
   try {
+    if (!isFirebaseReady()) {
+      return NextResponse.json({ error: "Firebase no configurado" }, { status: 503 });
+    }
+    
     const { uid, email, nombre } = await request.json();
 
     if (!uid || !email) {
@@ -39,6 +43,10 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    if (!isFirebaseReady()) {
+      return NextResponse.json({ error: "Firebase no configurado" }, { status: 503 });
+    }
+    
     const { searchParams } = new URL(request.url);
     const uid = searchParams.get("uid");
 
