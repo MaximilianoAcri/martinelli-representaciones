@@ -42,11 +42,21 @@ export function HistoryTimeline() {
   useEffect(() => {
     setMounted(true);
     
-    // Show events one by one with delays
+    // Show events one by one with delays (slower for better visibility)
     historyEvents.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleEvents(prev => [...prev, index]);
-      }, (index + 1) * 400);
+      // Each event appears 800ms after the previous one
+      const timer = setTimeout(() => {
+        setVisibleEvents(prev => {
+          // Use function form to avoid stale closure issues
+          if (!prev.includes(index)) {
+            return [...prev, index];
+          }
+          return prev;
+        });
+      }, index * 800);
+      
+      // Cleanup timeout on unmount
+      return () => clearTimeout(timer);
     });
   }, []);
 
@@ -66,14 +76,27 @@ export function HistoryTimeline() {
               className={`relative flex items-center ${!isLeft ? 'md:justify-end' : ''} ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-y-4'} transition-all duration-500`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Punto en la linea */}
-              <div className="absolute left-4 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full bg-slate-900 dark:bg-white border-4 border-white dark:border-slate-900 z-10"></div>
+              {/* Punto en la linea - solo aparece cuando el evento es visible */}
+              <div className={`
+                absolute left-4 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full z-10
+                transition-all duration-500 ease-out
+                ${isVisible 
+                  ? 'bg-blue-600 scale-100 opacity-100' 
+                  : 'bg-slate-300 dark:bg-slate-600 scale-50 opacity-0'
+                }
+              `}
+              style={{ transitionDelay: `${index * 150 + 200}ms` }}
+              ></div>
               
               {/* Contenido - alterna izq/der en desktop */}
               <div className={`w-full ml-12 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'}`}>
                 <div className={`
                   p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm
-                `}>
+                  transition-all duration-700 ease-out
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}
+                `}
+                style={{ transitionDelay: `${index * 150}ms` }}
+                >
                   <div className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1">
                     {event.year}
                   </div>

@@ -40,22 +40,26 @@ export function HeroSection() {
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-20 left-10 w-64 h-64 bg-slate-400/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-slate-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
         <div className="max-w-3xl">
           <div className="flex items-center gap-3 mb-6 slide-up">
             <span className="bg-white/10 backdrop-blur-md text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg flex items-center gap-2 border border-white/20">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 bg-slate-300 rounded-full animate-pulse"></span>
               20+ años asesorando a industriales
             </span>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight slide-up animate-delay-100 flex items-center flex-wrap gap-2 md:gap-0">
-            <img src="/m.png" alt="M" className="h-[1em] md:h-[1.3em] w-auto inline-block align-middle" />
-            <span className="text-white">artinelli</span>
-            <span className="text-white">Representaciones</span>
+            <div className="flex items-center">
+              <img src="/m.png" alt="M" className="h-[1.1em] md:h-[1.2em] w-auto inline-block align-middle" />
+              <span className="text-white">artinelli</span>
+            </div>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-400 to-slate-200 animate-pulse ml-2 md:ml-4">
+              Representaciones
+            </span>
           </h1>
           
           <AnimatedSubtitle />

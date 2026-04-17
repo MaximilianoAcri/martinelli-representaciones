@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* 2. SOBRE NOSOTROS - Credibilidad primero */}
       <AnimatedSection direction="up" delay={100}>
-        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden bg-dots">
           <div className="absolute top-0 right-0 w-72 h-72 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-3xl"></div>
           
@@ -53,24 +53,24 @@ export default function Home() {
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4 mt-8">
-                  <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">20+</div>
-                    <div className="text-slate-500 dark:text-slate-300 text-sm">Años</div>
+                  <div className="text-center p-4 bg-white/60 dark:bg-slate-700/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-600/50 rounded-xl shadow-sm hover-lift transition-all duration-300 group">
+                    <div className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 group-hover:from-slate-900 group-hover:to-black dark:group-hover:from-white dark:group-hover:to-slate-200 transition-all duration-300">20+</div>
+                    <div className="text-slate-500 dark:text-slate-300 text-sm font-medium">Años</div>
                   </div>
-                  <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">95+</div>
-                    <div className="text-slate-500 dark:text-slate-300 text-sm">Productos</div>
+                  <div className="text-center p-4 bg-white/60 dark:bg-slate-700/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-600/50 rounded-xl shadow-sm hover-lift transition-all duration-300 group">
+                    <div className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 group-hover:from-slate-900 group-hover:to-black dark:group-hover:from-white dark:group-hover:to-slate-200 transition-all duration-300">95+</div>
+                    <div className="text-slate-500 dark:text-slate-300 text-sm font-medium">Productos</div>
                   </div>
-                  <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">100%</div>
-                    <div className="text-slate-500 dark:text-slate-300 text-sm">Garantía</div>
+                  <div className="text-center p-4 bg-white/60 dark:bg-slate-700/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-600/50 rounded-xl shadow-sm hover-lift transition-all duration-300 group">
+                    <div className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 group-hover:from-slate-900 group-hover:to-black dark:group-hover:from-white dark:group-hover:to-slate-200 transition-all duration-300">100%</div>
+                    <div className="text-slate-500 dark:text-slate-300 text-sm font-medium">Garantía</div>
                   </div>
                 </div>
 
                 <div className="mt-8 flex flex-col sm:flex-row gap-4">
                   <Link 
                     href="/nosotros" 
-                    className="inline-flex items-center justify-center gap-2 text-slate-800 dark:text-white font-bold hover:text-blue-600 hover:gap-3 transition-all"
+                    className="inline-flex items-center justify-center gap-2 text-slate-800 dark:text-white font-bold hover:text-slate-500 dark:hover:text-slate-300 hover:gap-3 transition-all"
                   >
                     Conocenos más
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,8 +87,8 @@ export default function Home() {
               </div>
               
               <div className="hidden lg:grid grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-slate-700 rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-14 h-14 bg-slate-200 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="glass-card rounded-2xl p-6 text-center group relative overflow-hidden shadow-sm">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
                     <svg className="w-7 h-7 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
@@ -96,8 +96,8 @@ export default function Home() {
                   <div className="text-slate-900 dark:text-white font-semibold mb-1">Productos Certificados</div>
                   <div className="text-slate-500 dark:text-slate-400 text-sm">Garantía de calidad</div>
                 </div>
-                <div className="bg-white dark:bg-slate-700 rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-14 h-14 bg-slate-200 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="glass-card rounded-2xl p-6 text-center group relative overflow-hidden shadow-sm">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
                     <svg className="w-7 h-7 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -105,8 +105,8 @@ export default function Home() {
                   <div className="text-slate-900 dark:text-white font-semibold mb-1">Coordinamos Entregas</div>
                   <div className="text-slate-500 dark:text-slate-400 text-sm">Entrega rápida</div>
                 </div>
-                <div className="bg-white dark:bg-slate-700 rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-14 h-14 bg-slate-200 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="glass-card rounded-2xl p-6 text-center group relative overflow-hidden shadow-sm">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
                     <svg className="w-7 h-7 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -114,8 +114,8 @@ export default function Home() {
                   <div className="text-slate-900 dark:text-white font-semibold mb-1">Asesoría Personalizada</div>
                   <div className="text-slate-500 dark:text-slate-400 text-sm">Expertos te ayudan</div>
                 </div>
-                <div className="bg-white dark:bg-slate-700 rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-14 h-14 bg-slate-200 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="glass-card rounded-2xl p-6 text-center group relative overflow-hidden shadow-sm">
+                  <div className="w-14 h-14 bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
                     <svg className="w-7 h-7 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -136,9 +136,9 @@ export default function Home() {
 
       {/* 4. NEWSLETTER - Captura cuando está interesado */}
       <AnimatedSection direction="up" delay={180}>
-        <section className="py-16 md:py-20 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
+        <section className="py-16 md:py-20 bg-slate-200 dark:bg-slate-800/50 transition-colors duration-300 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-slate-400/10 dark:bg-slate-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-slate-500/10 dark:bg-slate-700/10 rounded-full blur-3xl"></div>
           <div className="max-w-3xl mx-auto px-4 relative">
             <Newsletter />
           </div>
@@ -167,7 +167,7 @@ export default function Home() {
 
       {/* 6. PROCESO DE TRABAJO - Reducir fricción */}
       <AnimatedSection direction="up" delay={250}>
-        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden bg-dots">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="max-w-7xl mx-auto px-4 relative">
             <div className="text-center mb-12">
@@ -189,7 +189,7 @@ export default function Home() {
 
       {/* 7. TESTIMONIOS - Prueba social */}
       <AnimatedSection direction="up" delay={300}>
-        <section className="py-16 md:py-24 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden">
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-3xl"></div>
           <div className="max-w-7xl mx-auto px-4 relative">
             <div className="text-center mb-12">
@@ -222,7 +222,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +236,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +250,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,7 +264,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,7 +278,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,7 +292,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-200 dark:border-slate-700">
+              <div className="glass-card p-6 rounded-xl hover-lift shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

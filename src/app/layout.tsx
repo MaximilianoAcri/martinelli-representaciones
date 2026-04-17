@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import Script from "next/script";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -85,8 +86,8 @@ export const metadata: Metadata = {
   creator: "Martinelli Representaciones",
   publisher: "Martinelli Representaciones",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/m.png",
+    apple: "/m.png",
   },
   formatDetection: {
     email: false,
@@ -139,9 +140,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="es" suppressHydrationWarning className={plusJakarta.variable}>
-      <body className="min-h-screen flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+return (
+		<html lang="es" suppressHydrationWarning className={plusJakarta.variable}>
+			<body className="min-h-screen flex flex-col bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
         {/* Archivo estático: evita el aviso de React 19 por <script> con children en el cliente */}
         <Script
           id="theme-init"

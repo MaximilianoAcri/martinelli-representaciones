@@ -43,9 +43,9 @@ export function ProcessTimeline() {
   return (
     <div className="relative">
       {/* Timeline line - Desktop */}
-      <div className="hidden md:block absolute top-8 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-700 mx-20 rounded-full overflow-hidden">
+      <div className="hidden md:block absolute top-8 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-700 mx-20 rounded-full overflow-hidden shadow-inner">
         <div 
-          className="h-full bg-slate-900 dark:bg-white transition-all duration-1000 ease-out rounded-full"
+          className="h-full bg-gradient-to-r from-slate-400 via-slate-600 to-slate-800 dark:from-slate-600 dark:via-slate-400 dark:to-slate-200 transition-all duration-1000 ease-out rounded-full"
           style={{ width: `${(visibleSteps.length / steps.length) * 100}%` }}
         />
       </div>
@@ -87,14 +87,15 @@ export function ProcessTimeline() {
 
               {/* Circle with number - Desktop */}
               <div className="hidden md:block relative mx-auto mb-4">
+                <div className={`absolute inset-0 bg-slate-500/20 rounded-full blur-xl transition-all duration-700 ${isActive ? 'scale-150 opacity-100' : 'scale-0 opacity-0'}`} />
                 <div 
                   className={`
-                    w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-2xl font-bold mx-auto
+                    w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-2xl font-bold mx-auto relative z-10
                     transition-all duration-500 transform
                     ${isVisible ? "scale-100" : "scale-0"}
                     ${isActive
-                      ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg shadow-slate-900/20 dark:shadow-white/20"
-                      : "bg-slate-300 dark:bg-slate-600 text-slate-500 dark:text-slate-400"
+                      ? "bg-gradient-to-br from-slate-800 to-black dark:from-slate-100 dark:to-white text-white dark:text-slate-900 shadow-lg shadow-slate-700/30 dark:shadow-white/30"
+                      : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-2 border-slate-200 dark:border-slate-700"
                     }
                   `}
                 >

@@ -33,11 +33,11 @@ export function AnimatedSubtitle() {
   }, []);
 
   return (
-    <div className="h-10 overflow-hidden">
+    <div className="h-10 md:h-12 overflow-hidden mb-4">
       <p 
         className={`
-          text-xl md:text-2xl font-medium text-white/90 transition-all duration-500 drop-shadow-md
-          ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
+          text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-slate-400 dark:from-slate-300 dark:to-slate-500 transition-all duration-500
+          ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
         `}
       >
         {messages[currentIndex]}

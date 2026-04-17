@@ -49,17 +49,17 @@ export function WhyChooseUs() {
           <div 
             key={index}
             className={`
-              bg-slate-50 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700
-              transition-all duration-500
+              glass-card p-6 rounded-2xl
+              transition-all duration-500 hover-lift group relative overflow-hidden
               ${isVisible 
                 ? "opacity-100 translate-y-0" 
                 : "opacity-0 translate-y-8"
               }
-              hover:shadow-xl hover:-translate-y-1
             `}
             style={{ transitionDelay: `${index * 100}ms` }}
           >
-            <div className="w-10 h-10 bg-slate-900 dark:bg-white rounded-lg flex items-center justify-center mb-4">
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-500/10 to-slate-400/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl"></div>
+            <div className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-900 dark:from-white dark:to-slate-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
               <span className="text-white dark:text-slate-900 font-bold text-sm">{benefit.letter}</span>
             </div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
