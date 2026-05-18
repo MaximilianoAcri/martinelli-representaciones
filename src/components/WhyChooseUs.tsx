@@ -1,76 +1,87 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {
+  BadgeCheck,
+  Truck,
+  Users,
+  CircleDollarSign,
+} from "lucide-react";
 
-const benefits = [
+const VENTAJAS = [
   {
-    letter: "A",
-    title: "Atención Personalizada",
-    description: "Maxi o Franco te van a guiar en cada paso de manera directa y sin vueltas. Atendemos tu necesidad específica."
+    icon: BadgeCheck,
+    color: "text-[#0ea5e9]",
+    bg: "bg-[#0ea5e9]/10 border-[#0ea5e9]/20",
+    title: "Asesoramiento tecnico",
+    descripcion:
+      "Te ayudamos a elegir el producto exacto que necesitas. Mas de 20 anos de experiencia en el rubro industrial.",
   },
   {
-    letter: "E",
-    title: "Entregas en Todo el País",
-    description: "Coordinamos la entrega de tu pedido a toda Argentina. Te pasamos el costo de envío según tu ubicación."
+    icon: Truck,
+    color: "text-[#22c55e]",
+    bg: "bg-[#22c55e]/10 border-[#22c55e]/20",
+    title: "Envios a todo el pais",
+    descripcion:
+      "Coordinamos el despacho a cualquier punto de Argentina, en tiempo y forma, con seguimiento de tu pedido.",
   },
   {
-    letter: "P",
-    title: "Precios de Fábrica",
-    description: "Tenemos los mejores precios directo de fábrica para vos."
+    icon: Users,
+    color: "text-[#8b5cf6]",
+    bg: "bg-[#8b5cf6]/10 border-[#8b5cf6]/20",
+    title: "Atencion personalizada",
+    descripcion:
+      "Trabajamos directo con vos: sin intermediarios, sin call centers. Hablas con quien conoce el producto.",
   },
   {
-    letter: "C",
-    title: "Calidad Garantizada",
-    description: "Productos de primera calidad certificados. Hierros, aceros y materiales que cumplen con los más altos estándares."
-  }
+    icon: CircleDollarSign,
+    color: "text-[#f59e0b]",
+    bg: "bg-[#f59e0b]/10 border-[#f59e0b]/20",
+    title: "Precios competitivos",
+    descripcion:
+      "Compramos directo a fabrica y te trasladamos ese precio. Cotizaciones rapidas y sin sorpresas.",
+  },
 ];
 
-export function WhyChooseUs() {
-  const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    
-    // Show items one by one with delays
-    benefits.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleItems(prev => [...prev, index]);
-      }, (index + 1) * 300);
-    });
-  }, []);
-
+export default function WhyChooseUs() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {benefits.map((benefit, index) => {
-        const isVisible = visibleItems.includes(index);
-        
-        return (
-          <div 
-            key={index}
-            className={`
-              glass-card p-6 rounded-2xl
-              transition-all duration-500 hover-lift group relative overflow-hidden
-              ${isVisible 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-8"
-              }
-            `}
-            style={{ transitionDelay: `${index * 100}ms` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-500/10 to-slate-400/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl"></div>
-            <div className="w-12 h-12 bg-gradient-to-br from-slate-800 to-slate-900 dark:from-white dark:to-slate-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
-              <span className="text-white dark:text-slate-900 font-bold text-sm">{benefit.letter}</span>
-            </div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-              {benefit.title}
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
-              {benefit.description}
-            </p>
-          </div>
-        );
-      })}
-    </div>
+    <section className="py-20 px-4 bg-[#f8fafc] dark:bg-[#0f172a]">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-14">
+          <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-[#0ea5e9]/10 text-[#0ea5e9] border border-[#0ea5e9]/20">
+            Ventajas
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] dark:text-[#f1f5f9] mb-3">
+            Por que elegirnos?
+          </h2>
+          <p className="text-[#64748b] dark:text-[#94a3b8] max-w-xl mx-auto text-base">
+            Mas de dos decadas proveyendo materiales de calidad para corralones, constructoras e industriales de todo el pais.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {VENTAJAS.map((v, i) => {
+            const Icon = v.icon;
+            return (
+              <div
+                key={i}
+                className="group flex flex-col gap-4 p-6 bg-white dark:bg-[#1e293b] border border-[#e2e8f0] dark:border-[#334155] rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+              >
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${v.bg} transition-transform duration-300 group-hover:scale-110`}>
+                  <Icon className={`w-6 h-6 ${v.color}`} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="font-semibold text-[#1e293b] dark:text-[#f1f5f9] text-base leading-tight">
+                    {v.title}
+                  </h3>
+                  <p className="text-[#64748b] dark:text-[#94a3b8] text-sm leading-relaxed">
+                    {v.descripcion}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
