@@ -303,9 +303,6 @@ export default function ProspectosPage() {
   const [modoCampana, setModoCampana] = useState(false);
   const [campanaIndex, setCampanaIndex] = useState(0);
 
-  const prospectosCampana = prospectosFiltrados.filter(p => p.telefonoLimpio);
-  const prospectoActualCampana = prospectosCampana[campanaIndex];
-
   const iniciarCampana = () => {
     const nuevos = prospectosFiltrados.filter(p => p.estado === 'nuevo' && p.telefonoLimpio);
     if (nuevos.length === 0) {
@@ -361,6 +358,10 @@ export default function ProspectosPage() {
     noContactados: prospectos.filter(p => p.estado === 'no-contactado').length,
     clientes: prospectos.filter(p => p.estado === 'cliente').length,
   };
+
+  // Campaña: solo los filtrados con teléfono
+  const prospectosCampana = prospectosFiltrados.filter(p => p.telefonoLimpio);
+  const prospectoActualCampana = prospectosCampana[campanaIndex];
 
   // Paginación
   const prospectosPaginados = prospectosFiltrados.slice(
