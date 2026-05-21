@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Producto } from "@/types";
 import { useCotizacion } from "./CotizacionContext";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 interface ProductCardProps {
   producto: Producto;
@@ -15,19 +16,16 @@ export function ProductCard({ producto, variant = "default" }: ProductCardProps)
   const [imagenAmpliada, setImagenAmpliada] = useState(false);
   const { openModal } = useCotizacion();
 
+  useScrollLock(imagenAmpliada);
+
   // Cerrar imagen ampliada con ESC
   useEffect(() => {
+    if (!imagenAmpliada) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setImagenAmpliada(false);
     };
-    if (imagenAmpliada) {
-      document.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset";
-    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
   }, [imagenAmpliada]);
 
   if (variant === "compact") {

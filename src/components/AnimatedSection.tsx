@@ -15,10 +15,15 @@ export function AnimatedSection({
   delay = 0,
   direction = "up"
 }: AnimatedSectionProps) {
-  const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const [isVisible, setIsVisible] = useState(prefersReducedMotion);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -26,7 +31,7 @@ export function AnimatedSection({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -30px 0px" }
     );
 
     if (ref.current) {
@@ -34,7 +39,7 @@ export function AnimatedSection({
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [prefersReducedMotion]);
 
   const getTransform = () => {
     switch (direction) {

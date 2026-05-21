@@ -3,6 +3,7 @@ import type { Firestore } from "firebase-admin/firestore";
 import { getFirestore } from "firebase-admin/firestore";
 import * as fs from "fs";
 import * as path from "path";
+import { restDb } from "./firestore-rest";
 
 function loadServiceAccount(): ServiceAccount | null {
   const inline = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
@@ -36,7 +37,6 @@ function loadServiceAccount(): ServiceAccount | null {
     }
   }
 
-  console.warn("Firebase Admin: No credentials found. Firebase features will be disabled.");
   return null;
 }
 
@@ -44,6 +44,7 @@ function loadServiceAccount(): ServiceAccount | null {
 class FirestoreManager {
   private static instance: Firestore | null = null;
   private static initialized = false;
+  private static usingRest = false;
 
   static getInstance(): Firestore | null {
     if (this.instance) return this.instance;
@@ -51,8 +52,11 @@ class FirestoreManager {
 
     const serviceAccount = loadServiceAccount();
     if (!serviceAccount) {
+      // Fall back to REST client — no service account needed
       this.initialized = true;
-      return null;
+      this.usingRest = true;
+      console.info("Firebase Admin: using REST API fallback (no service account found).");
+      return null; // signal to use restDb
     }
 
     try {
@@ -63,22 +67,29 @@ class FirestoreManager {
     } catch (e) {
       console.error("Error initializing Firebase Admin:", e);
       this.initialized = true;
+      this.usingRest = true;
       return null;
     }
+  }
+
+  static isUsingRest(): boolean {
+    if (!this.initialized) this.getInstance();
+    return this.usingRest;
   }
 }
 
 export const firestore = new Proxy({} as Firestore, {
   get(_target, prop) {
     const real = FirestoreManager.getInstance();
+
+    // If no Admin SDK instance, proxy to the REST client
     if (!real) {
-      if (typeof prop === 'string' && (prop === 'collection' || prop === 'doc' || prop === 'runTransaction')) {
-        return () => {
-          throw new Error("Firebase Admin not initialized. Add FIREBASE_SERVICE_ACCOUNT_JSON to your environment variables.");
-        };
+      if (prop === "collection") {
+        return (name: string) => restDb.collection(name);
       }
       return undefined;
     }
+
     const value = Reflect.get(real, prop);
     if (typeof value === "function") {
       return value.bind(real);
@@ -90,5 +101,6 @@ export const firestore = new Proxy({} as Firestore, {
 export const db = firestore;
 
 export function isFirebaseReady(): boolean {
-  return FirestoreManager.getInstance() !== null;
+  // Always ready: either via Admin SDK or via REST fallback
+  return true;
 }

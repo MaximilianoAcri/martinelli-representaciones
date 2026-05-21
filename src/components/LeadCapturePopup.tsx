@@ -11,13 +11,21 @@ export function LeadCapturePopup() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Show after 15 seconds if not dismissed before
+    const dismissed = localStorage.getItem("lead-capture-dismissed");
+    if (dismissed) return;
+
+    // Contar páginas vistas en la sesión
+    const visited = parseInt(sessionStorage.getItem("pages-visited") || "0", 10) + 1;
+    sessionStorage.setItem("pages-visited", String(visited));
+
+    // Solo mostrar si el usuario ya visitó al menos 2 páginas
+    if (visited < 2) return;
+
+    // Mostrar a los 35s para no interrumpir la navegación inicial
     const timer = setTimeout(() => {
-      const dismissed = localStorage.getItem("lead-capture-dismissed");
-      if (!dismissed) {
-        setIsOpen(true);
-      }
-    }, 15000);
+      const stillDismissed = localStorage.getItem("lead-capture-dismissed");
+      if (!stillDismissed) setIsOpen(true);
+    }, 35000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -32,10 +40,11 @@ export function LeadCapturePopup() {
         email,
         fecha: serverTimestamp(),
         origen: "lead-capture-popup",
-        estado: "suscrito"
+        estado: "suscrito",
       });
       setEnviado(true);
       localStorage.setItem("lead-capture-dismissed", "true");
+      setTimeout(() => setIsOpen(false), 3000);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -48,92 +57,76 @@ export function LeadCapturePopup() {
     localStorage.setItem("lead-capture-dismissed", "true");
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={handleDismiss}
-      />
-      
-      {/* Popup */}
-      <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6 md:p-8 animate-fade-in">
+    <div
+      className={`
+        fixed bottom-6 left-4 sm:left-auto sm:right-6 z-[90] w-[calc(100vw-2rem)] sm:w-80
+        transition-all duration-500 ease-out
+        ${isOpen ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-8 opacity-0 pointer-events-none"}
+      `}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Catálogo gratuito"
+    >
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 p-5 relative">
+        {/* Botón cerrar */}
         <button
           onClick={handleDismiss}
-          className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+          className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+          aria-label="Cerrar"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {enviado ? (
-          <div className="text-center py-6">
-            <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center py-2">
+            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
-              ¡Gracias! ✅
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300">
-              Te agregamos a nuestra lista. Soon you'll receive updates.
-            </p>
+            <p className="font-semibold text-slate-800 dark:text-white">¡Listo! Te lo enviamos pronto.</p>
           </div>
         ) : (
           <>
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-2">
-                ¿Necesitás nuestro catálogo?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 text-sm">
-                Descargá el catálogo completo con todos los productos, medidas y precios de fábrica.
-              </p>
+              <div>
+                <p className="font-bold text-slate-800 dark:text-white text-sm leading-tight">
+                  ¿Querés nuestro catálogo?
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Productos, medidas y precios de fábrica
+                </p>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Tu email para mandarte el catálogo"
-                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none dark:bg-slate-700 dark:text-white"
+                placeholder="Tu email"
+                className="flex-1 min-w-0 px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none dark:bg-slate-700 dark:text-white"
                 required
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
               >
-                {loading ? (
-                  <>
-                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Enviando...
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Descargar Catálogo
-                  </>
-                )}
+                {loading ? "..." : "Enviar"}
               </button>
             </form>
 
-            <p className="text-center text-xs text-slate-400 mt-4">
-              No spam. Solo contenido relevante. Podés darte de baja cuando quieras.
+            <p className="text-xs text-slate-400 mt-2 text-center">
+              Sin spam. Podés darte de baja cuando quieras.
             </p>
           </>
         )}

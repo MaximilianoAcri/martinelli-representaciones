@@ -115,7 +115,7 @@ export default function ContactoClient() {
               </div>
               <div>
                 <p className="font-semibold text-lg">Envianos un email</p>
-                <p className="text-slate-500 dark:text-slate-300">martinellirepresentaciones@gmail.com</p>
+                <p className="text-slate-500 dark:text-slate-300 break-all">martinellirepresentaciones@gmail.com</p>
               </div>
             </a>
           </div>

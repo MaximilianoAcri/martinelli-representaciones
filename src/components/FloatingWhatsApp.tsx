@@ -7,19 +7,19 @@ export function FloatingWhatsApp() {
 
   // Mostrar el mensaje unos segundos después de que cargue la página
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 3000);
-
-    // Ocultarlo después de 10 segundos
-    const hideTimer = setTimeout(() => {
-      setShowTooltip(false);
-    }, 12000);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(hideTimer);
+    // Solo mostrar el tooltip si el usuario ya scrolleó (no en el hero)
+    const onScroll = () => {
+      if (window.scrollY > 300) {
+        setShowTooltip(true);
+        // Ocultar a los 5s de haberlo mostrado
+        const hide = setTimeout(() => setShowTooltip(false), 5000);
+        window.removeEventListener("scroll", onScroll);
+        return () => clearTimeout(hide);
+      }
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const phoneNumber = "5411599229083";

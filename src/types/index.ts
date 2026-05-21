@@ -1,7 +1,7 @@
 export interface Subcategoria {
   id: string;
   nombre: string;
-  imagen: string;
+  imagen?: string;
   descripcion?: string;
 }
 

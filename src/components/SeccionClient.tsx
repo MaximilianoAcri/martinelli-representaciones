@@ -468,7 +468,7 @@ export function SeccionClient() {
   return (
     <div>
       {/* Hero premium con efectos visuales */}
-      <section className="relative h-[400px] md:h-[450px] overflow-hidden">
+      <section className="relative min-h-[400px] md:min-h-[450px] overflow-x-hidden">
         <div className="absolute inset-0">
           <Image 
             src={categoria.imagen} 
@@ -618,7 +618,7 @@ export function SeccionClient() {
                 </select>
               </div>
               
-              <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+              <span className="text-sm text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
                 {productosFiltrados.length} productos
               </span>
             </div>

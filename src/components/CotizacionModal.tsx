@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { productos } from "@/data/productos";
 import { useCotizacion } from "./CotizacionContext";
 import { useAuth } from "./AuthContext";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 interface ItemCotizacion {
   id: string;
@@ -37,8 +38,11 @@ export function CotizacionModal() {
   const modalRef = useRef<HTMLDivElement>(null);
   const buscadorRef = useRef<HTMLInputElement>(null);
 
+  useScrollLock(isOpen);
+
   // Cerrar con ESC
   useEffect(() => {
+    if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         if (mostrarBuscador) {
@@ -49,14 +53,8 @@ export function CotizacionModal() {
         }
       }
     };
-    if (isOpen) {
-      document.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset";
-    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, closeModal, mostrarBuscador]);
 
   // Auto-fill con datos del usuario logueado
