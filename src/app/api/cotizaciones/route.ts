@@ -67,8 +67,8 @@ export async function POST(request: NextRequest) {
 
     // Enviar notificación por Telegram si están las credenciales
     try {
-      const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
-      const telegramChatId = process.env.TELEGRAM_CHAT_ID;
+      const telegramToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
+      const telegramChatId = process.env.TELEGRAM_CHAT_ID?.trim();
 
       if (telegramToken && telegramChatId) {
         // Armar mensaje con los productos
@@ -113,11 +113,11 @@ export async function POST(request: NextRequest) {
 
     // Enviar notificación por Email si están las credenciales
     try {
-      const smtpHost = process.env.SMTP_HOST;
-      const smtpPort = process.env.SMTP_PORT;
-      const smtpUser = process.env.SMTP_USER;
-      const smtpPass = process.env.SMTP_PASS;
-      const emailTo = process.env.EMAIL_TO || process.env.SMTP_USER;
+      const smtpHost = process.env.SMTP_HOST?.trim();
+      const smtpPort = process.env.SMTP_PORT?.trim();
+      const smtpUser = process.env.SMTP_USER?.trim();
+      const smtpPass = process.env.SMTP_PASS?.trim();
+      const emailTo = (process.env.EMAIL_TO || process.env.SMTP_USER)?.trim();
 
       if (smtpHost && smtpUser && smtpPass) {
         // Armar email HTML
